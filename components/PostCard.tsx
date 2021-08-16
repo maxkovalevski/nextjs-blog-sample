@@ -16,22 +16,25 @@ export const PostCard: FC<Props> = ({
     year: "numeric",
   });
   const imageSrc = `/images/blog/${slug}/${image}`;
-  const link = "";
+  const linkPath = `/blog/${slug}`;
 
   return (
-    <div>
-      <Link href={link}>
+    <div style={{ maxWidth: "300px", width: "100%" }}>
+      <Link href={linkPath}>
         <a>
-          <Image
-            src={imageSrc}
-            alt={title}
-            width={300}
-            height={200}
-            objectFit="cover"
-          />
+          <div>
+            <Image
+              src={imageSrc}
+              alt={title}
+              width={300}
+              height={200}
+              objectFit="cover"
+              layout="responsive"
+            />
+          </div>
         </a>
       </Link>
-      <Link href={link}>
+      <Link href={linkPath}>
         <a>{title}</a>
       </Link>
       <div>

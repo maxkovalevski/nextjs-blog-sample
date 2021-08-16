@@ -1,24 +1,43 @@
 import type { NextPage } from "next";
-import { RecentPosts, Welcome } from "../components";
+import Head from "next/head";
+import React from "react";
 
-const DUMMY_POSTS_LIST = [
-  {
-    title: "First Post Here",
-    image: "first-post-here.png",
-    excerpt:
-      "Excepteur consequat anim velit eu sint commodo reprehenderit quis.",
-    date: "2021-08-08",
-    slug: "first-post-here",
-  },
-];
+import { Welcome, PostsList } from "../components";
 
-const Home: NextPage = () => {
+import { getAllPosts } from "../lib/blog-utils";
+import { Post } from "../types";
+
+interface Props {
+  posts: Post[];
+}
+
+const Home: NextPage<Props> = ({ posts }) => {
   return (
     <>
+      <Head>
+        <title>Next.js Blog Sample</title>
+        <meta
+          name="description"
+          content="Elit sint cupidatat minim laborum ea."
+        />
+      </Head>
       <Welcome />
-      <RecentPosts posts={DUMMY_POSTS_LIST} />
+      <section>
+        <h2>Recent Posts</h2>
+        <PostsList posts={posts} />
+      </section>
     </>
   );
+};
+
+export const getStaticProps = () => {
+  const posts = getAllPosts();
+
+  return {
+    props: {
+      posts,
+    },
+  };
 };
 
 export default Home;

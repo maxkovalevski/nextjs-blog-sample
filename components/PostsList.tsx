@@ -9,7 +9,14 @@ interface Props {
 
 export const PostsList: FC<Props> = ({ posts }) => {
   return (
-    <div>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr 1fr",
+        gridTemplateRows: "1fr 1fr 1fr",
+        gap: "0px 0px",
+      }}
+    >
       {posts.map((post) => (
         <PostCard key={post.slug} post={post} />
       ))}
