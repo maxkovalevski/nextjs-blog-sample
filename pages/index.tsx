@@ -4,7 +4,7 @@ import React from "react";
 
 import { Welcome, PostsList } from "../components";
 
-import { getAllPosts } from "../lib/blog-utils";
+import { getAllFilesFrontMatter } from "../lib/getAllFilesFrontMatter";
 import { Post } from "../types";
 
 interface Props {
@@ -23,15 +23,15 @@ const Home: NextPage<Props> = ({ posts }) => {
       </Head>
       <Welcome />
       <section>
-        <h2>Recent Posts</h2>
+        <h2>Blog Posts</h2>
         <PostsList posts={posts} />
       </section>
     </>
   );
 };
 
-export const getStaticProps = () => {
-  const posts = getAllPosts();
+export const getStaticProps = async () => {
+  const posts = await getAllFilesFrontMatter("blog");
 
   return {
     props: {

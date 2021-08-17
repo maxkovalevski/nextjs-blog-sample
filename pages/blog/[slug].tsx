@@ -31,6 +31,13 @@ export function getStaticProps({
   const { slug = "" } = params || {};
   const post = getPostDataBySlug(slug);
 
+  if (!post) {
+    return {
+      props: {},
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       post,

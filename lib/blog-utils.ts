@@ -1,22 +1,25 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import slugify from "@sindresorhus/slugify";
+
+import { formatSlug } from "./formatSlug";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
-
-export const fileNameSlugify = (fileName: string) =>
-  slugify(fileName.replace(/\.md$/, ""));
 
 export const getPostsFiles = () => {
   return fs.readdirSync(CONTENT_DIR);
 };
 
 export const getPostData = (fileName: string) => {
-  const slug = fileNameSlugify(fileName);
+  const slug = formatSlug(fileName);
   const filePath = path.join(CONTENT_DIR, fileName);
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
+  const { public: isPublic = false } = data;
+
+  if (!isPublic) {
+    return null;
+  }
 
   const postData = {
     slug,
@@ -47,7 +50,8 @@ export const getAllPosts = () => {
     .filter((file) => file.includes(".md"))
     .map((postFile) => {
       return getPostData(postFile);
-    });
+    })
+    .filter(Boolean);
 
   const sortedPosts = allPosts.sort((postA, postB) =>
     postA.date > postB.date ? -1 : 1

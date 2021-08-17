@@ -6,3 +6,5 @@ export interface Post {
   slug: string;
   content: string;
 }
+
+export type ContentType = typeof CONTENT_TYPE_BLOG | typeof CONTENT_TYPE_NOTE;
