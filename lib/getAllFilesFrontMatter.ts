@@ -2,11 +2,13 @@ import path from "path";
 import fs from "fs";
 import matter from "gray-matter";
 
-import { CONTENT_TYPE_BLOG, CONTENT_TYPE_NOTE, ROOT_DIR } from "./constants";
+import { CONTENT_TYPE_BLOG, CONTENT_TYPE_NOTE } from "./constants";
 import { getAllFilesRecursively } from "./getAllFilesRecursively";
 import { formatSlug } from "./formatSlug";
 import { dateSortDesc } from "./dateSortDesc";
 import { contentTypeCondition } from "./contentTypeCondition";
+import { getPostExcerpt } from "./getPostExcerpt";
+
 
 interface FrontMatterItem {
   date: string | null;
@@ -16,6 +18,7 @@ interface FrontMatterItem {
 export async function getAllFilesFrontMatter(
   contentType: typeof CONTENT_TYPE_BLOG | typeof CONTENT_TYPE_NOTE
 ) {
+  const ROOT_DIR = process.cwd();
   const prefixPaths = path.join(ROOT_DIR, "content");
 
   const files = getAllFilesRecursively(prefixPaths);
@@ -30,20 +33,20 @@ export async function getAllFilesFrontMatter(
       return;
     }
     const source = fs.readFileSync(file, "utf8");
-    const { data: frontmatter } = matter(source);
-    const { public: isPublic = false, type } = frontmatter;
+    const { data: frontmatter, content } = matter(source);
+    const { public: isPublic = false, type, excerpt } = frontmatter;
 
     if (!isPublic || !contentTypeCondition(contentType, type)) {
       return;
     }
 
-    // if (frontmatter.draft !== true) {
 
-    // }
     allFrontMatter.push({
       ...frontmatter,
       slug: formatSlug(fileName),
       date: frontmatter.date ? new Date(frontmatter.date).toISOString() : null,
+      excerpt: excerpt ? excerpt : getPostExcerpt(content),
+      content,
     });
   });
 

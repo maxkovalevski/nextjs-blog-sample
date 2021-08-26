@@ -8,3 +8,8 @@ export interface Post {
 }
 
 export type ContentType = typeof CONTENT_TYPE_BLOG | typeof CONTENT_TYPE_NOTE;
+
+export interface PaginationData {
+  currentPage: string;
+  totalPages: string;
+}

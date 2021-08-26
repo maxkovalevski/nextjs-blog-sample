@@ -23,6 +23,7 @@ export const PostCard: FC<Props> = ({
       <Link href={linkPath}>
         <a>
           <div>
+           {/* 
             <Image
               src={imageSrc}
               alt={title}
@@ -30,7 +31,7 @@ export const PostCard: FC<Props> = ({
               height={200}
               objectFit="cover"
               layout="responsive"
-            />
+            />*/}
           </div>
         </a>
       </Link>
