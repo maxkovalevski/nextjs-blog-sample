@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import React from "react";
+
 import { Pagination } from "../../components/Pagination";
 import { PostsList } from "../../components/PostsList";
 
@@ -9,14 +10,14 @@ import { getAllFilesFrontMatter } from "../../lib/getAllFilesFrontMatter";
 import { PaginationData, Post } from "../../types";
 
 export async function getStaticProps() {
-  const posts = await getAllFilesFrontMatter('blog')
+  const posts = await getAllFilesFrontMatter(["blog"]);
   const initialDisplayPosts = posts.slice(0, BLOG_POSTS_MAX_DISPLAY);
   const pagination = {
     currentPage: 1,
     totalPages: Math.ceil(posts.length / BLOG_POSTS_MAX_DISPLAY),
-  }
+  };
 
-  return { props: { initialDisplayPosts, posts, pagination } }
+  return { props: { initialDisplayPosts, posts, pagination } };
 }
 
 interface Props {
@@ -25,9 +26,8 @@ interface Props {
   pagination: PaginationData;
 }
 
-const Blog: NextPage<Props> = ({initialDisplayPosts, pagination}) => {
-  const displayPosts =
-    initialDisplayPosts
+const Blog: NextPage<Props> = ({ initialDisplayPosts, pagination }) => {
+  const displayPosts = initialDisplayPosts;
 
   return (
     <div>
@@ -38,7 +38,10 @@ const Blog: NextPage<Props> = ({initialDisplayPosts, pagination}) => {
       <div>
         <PostsList posts={displayPosts} />
         {pagination && parseInt(pagination.totalPages) > 1 && (
-          <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
+          <Pagination
+            currentPage={pagination.currentPage}
+            totalPages={pagination.totalPages}
+          />
         )}
       </div>
     </div>

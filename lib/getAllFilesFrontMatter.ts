@@ -2,24 +2,24 @@ import path from "path";
 import fs from "fs";
 import matter from "gray-matter";
 
-import { CONTENT_TYPE_BLOG, CONTENT_TYPE_NOTE } from "./constants";
+import { CONTENT_DIR, CONTENT_TYPE_BLOG, CONTENT_TYPE_NOTE } from "./constants";
 import { getAllFilesRecursively } from "./getAllFilesRecursively";
 import { formatSlug } from "./formatSlug";
 import { dateSortDesc } from "./dateSortDesc";
 import { contentTypeCondition } from "./contentTypeCondition";
 import { getPostExcerpt } from "./getPostExcerpt";
-
+import { ContentType } from "../types";
 
 interface FrontMatterItem {
   date: string | null;
+  public?: boolean | null;
+  tags?: string[] | null;
   [key: string]: unknown;
 }
 
-export async function getAllFilesFrontMatter(
-  contentType: typeof CONTENT_TYPE_BLOG | typeof CONTENT_TYPE_NOTE
-) {
+export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
   const ROOT_DIR = process.cwd();
-  const prefixPaths = path.join(ROOT_DIR, "content");
+  const prefixPaths = path.join(ROOT_DIR, CONTENT_DIR);
 
   const files = getAllFilesRecursively(prefixPaths);
 
@@ -36,10 +36,9 @@ export async function getAllFilesFrontMatter(
     const { data: frontmatter, content } = matter(source);
     const { public: isPublic = false, type, excerpt } = frontmatter;
 
-    if (!isPublic || !contentTypeCondition(contentType, type)) {
+    if (!isPublic || !contentTypeCondition(contentTypes, type)) {
       return;
     }
-
 
     allFrontMatter.push({
       ...frontmatter,

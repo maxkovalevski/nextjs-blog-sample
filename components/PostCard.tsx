@@ -8,7 +8,7 @@ export interface Props {
 }
 
 export const PostCard: FC<Props> = ({
-  post: { title, image, date, excerpt, slug },
+  post: { title, image, date, excerpt, slug, tags = [], type = "note" },
 }) => {
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
@@ -16,14 +16,29 @@ export const PostCard: FC<Props> = ({
     year: "numeric",
   });
   const imageSrc = `/images/blog/${slug}/${image}`;
-  const linkPath = `/blog/${slug}`;
+  const LINK_TYPES_PATHS: {
+    [key: string]: string;
+  } = {
+    note: "notes",
+    blog: "blog",
+  };
+  const linkPath = `/${LINK_TYPES_PATHS[type]}/${slug}`;
 
   return (
-    <div style={{ maxWidth: "300px", width: "100%" }}>
+    <div
+      style={{
+        maxWidth: "800px",
+        width: "100%",
+        backgroundColor: "#36373A",
+        borderRadius: "4px",
+        padding: "10px",
+        marginBottom: "10px",
+      }}
+    >
       <Link href={linkPath}>
         <a>
           <div>
-           {/* 
+            {/* 
             <Image
               src={imageSrc}
               alt={title}
@@ -35,9 +50,22 @@ export const PostCard: FC<Props> = ({
           </div>
         </a>
       </Link>
-      <Link href={linkPath}>
-        <a>{title}</a>
-      </Link>
+      <h2>
+        <Link href={linkPath}>
+          <a>{title}</a>
+        </Link>
+      </h2>
+      <div>
+        <ul>
+          {tags.map((tag) => (
+            <li key={tag}>
+              <Link href={`/tags/${tag}`}>
+                <a>#{tag}</a>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
       <div>
         <p>{excerpt}</p>
         <div>

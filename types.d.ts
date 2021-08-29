@@ -5,6 +5,8 @@ export interface Post {
   date: string;
   slug: string;
   content: string;
+  tags?: string[];
+  type?: ContentType;
 }
 
 export type ContentType = typeof CONTENT_TYPE_BLOG | typeof CONTENT_TYPE_NOTE;

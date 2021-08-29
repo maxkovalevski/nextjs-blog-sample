@@ -29,10 +29,7 @@ const Home: NextPage<Props> = ({ posts }) => {
         <PostsList posts={posts.slice(0, BLOG_POSTS_MAX_DISPLAY)} />
         {posts.length > BLOG_POSTS_MAX_DISPLAY && (
           <div>
-            <Link
-              href="/blog"
-              aria-label="all posts"
-            >
+            <Link href="/blog" aria-label="all posts">
               All Posts &rarr;
             </Link>
           </div>
@@ -43,7 +40,7 @@ const Home: NextPage<Props> = ({ posts }) => {
 };
 
 export const getStaticProps = async () => {
-  const posts = await getAllFilesFrontMatter("blog");
+  const posts = await getAllFilesFrontMatter(["blog"]);
 
   return {
     props: {

@@ -3,16 +3,17 @@ import path from "path";
 import matter from "gray-matter";
 
 import { formatSlug } from "./formatSlug";
+import { CONTENT_DIR } from "./constants";
 
-const CONTENT_DIR = path.join(process.cwd(), "content");
+const CONTENT_DIR_PATH = path.join(process.cwd(), CONTENT_DIR);
 
 export const getPostsFiles = () => {
-  return fs.readdirSync(CONTENT_DIR);
+  return fs.readdirSync(CONTENT_DIR_PATH);
 };
 
 export const getPostData = (fileName: string) => {
   const slug = formatSlug(fileName);
-  const filePath = path.join(CONTENT_DIR, fileName);
+  const filePath = path.join(CONTENT_DIR_PATH, fileName);
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
   const { public: isPublic = false } = data;
@@ -32,7 +33,7 @@ export const getPostData = (fileName: string) => {
 
 export const getPostDataBySlug = (slug: string) => {
   const files = getPostsFiles();
-  const foundFile = files.find((file) => fileNameSlugify(file) === slug);
+  const foundFile = files.find((file) => formatSlug(file) === slug);
 
   if (!foundFile) {
     return;
