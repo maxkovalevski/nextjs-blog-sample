@@ -3,7 +3,8 @@ import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 
-import { Welcome, PostsList } from "../components";
+import { PostsList } from "../components/PostsList";
+import { Welcome } from "../components/Welcome";
 import { BLOG_POSTS_MAX_DISPLAY } from "../lib/constants";
 
 import { getAllFilesFrontMatter } from "../lib/getAllFilesFrontMatter";

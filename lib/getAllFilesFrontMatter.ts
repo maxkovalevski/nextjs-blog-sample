@@ -14,6 +14,8 @@ interface FrontMatterItem {
   date: string | null;
   public?: boolean | null;
   tags?: string[] | null;
+  slug: string;
+  fileName: string;
   [key: string]: unknown;
 }
 
@@ -42,9 +44,10 @@ export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
 
     allFrontMatter.push({
       ...frontmatter,
-      slug: formatSlug(fileName),
+      slug: formatSlug(fileName.replace(".mdx", "").replace(".md", "")),
       date: frontmatter.date ? new Date(frontmatter.date).toISOString() : null,
       excerpt: excerpt ? excerpt : getPostExcerpt(content),
+      fileName,
       content,
     });
   });
