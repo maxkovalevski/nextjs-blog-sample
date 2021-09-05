@@ -5,6 +5,7 @@ import { PostFrontMatter } from "../types";
 import siteMetadata from "../siteMetadata";
 import Link from "next/link";
 import { getTwitterDiscussUrl } from "../lib/getTwitterDiscussUrl";
+import { isTypeNote } from "../lib/isTypeNote";
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: "long",
@@ -20,7 +21,8 @@ interface Props {
 }
 
 const PostLayout: FC<Props> = ({ frontMatter, next, prev, children }) => {
-  const { slug, date, title, tags } = frontMatter;
+  const { slug, date, title, tags, type } = frontMatter;
+  const isNote = isTypeNote(type);
 
   return (
     <>
@@ -51,7 +53,7 @@ const PostLayout: FC<Props> = ({ frontMatter, next, prev, children }) => {
           )}
         </div>
         <div>
-          <h1>{title}</h1>
+          {!isNote && <h1>{title}</h1>}
         </div>
         <div>{children}</div>
         <div className="pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">

@@ -1,7 +1,7 @@
 import { GetStaticPropsContext, NextPage } from "next";
 import React from "react";
 
-import { PostsList } from "../../components";
+import { PostsList } from "../../components/PostsList";
 import { CONTENT_TYPE_BLOG, CONTENT_TYPE_NOTE } from "../../lib/constants";
 import { getAllFilesFrontMatter } from "../../lib/getAllFilesFrontMatter";
 import { getAllTags } from "../../lib/getAllTags";

@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import { FC, useMemo } from "react";
-import { getMDXComponent, MDXContentProps } from "mdx-bundler/client";
+import { getMDXComponent } from "mdx-bundler/client";
 import NextImage from "next/image";
 import CustomLink from "./CustomLink";
 // import TOCInline from "./TOCInline";

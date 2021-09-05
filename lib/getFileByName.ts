@@ -7,19 +7,20 @@ import remarkAutolinkHeadings from "remark-autolink-headings";
 import remarkGfm from "remark-gfm";
 import remarkFootnotes from "remark-footnotes";
 import remarkMath from "remark-math";
+import remarkWikiLink from 'remark-wiki-link';
 
 import { remarkTocHeadings } from "./remarkTocHeadings";
 import { remarkImgToJsx } from "./remarkImgToJsx";
 import { remarkCodeTitles } from "./remarkCodeTitles";
 
-import { CONTENT_DIR } from "./constants";
+import { CONTENT_DIR, NOTES_URL } from "./constants";
 import { formatSlug } from "./formatSlug";
 
 const root = process.cwd();
 
-export const getFileByName = async (fileName: string) => {
+export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permalinkPrefix = NOTES_URL) => {
   const slug = formatSlug(fileName);
-  const filePath = path.join(root, CONTENT_DIR, fileName);
+  const filePath = path.join(root, dir, fileName);
   // const mdxPath = path.join(root, CONTENT_DIR, `${fileName}.mdx`);
   // const mdPath = path.join(root, CONTENT_DIR, `${fileName}.md`);
   // console.log("mdxPath", mdxPath);
@@ -65,6 +66,10 @@ export const getFileByName = async (fileName: string) => {
         [remarkFootnotes, { inlineNotes: true }],
         remarkMath,
         remarkImgToJsx,
+        [remarkWikiLink, {
+          hrefTemplate: (permalink: string) => `/${permalinkPrefix}/${permalink}`,
+          pageResolver: (name: string) => [name]
+        }]
       ];
       options.rehypePlugins = [
         ...(options.rehypePlugins ?? []),

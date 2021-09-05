@@ -9,6 +9,7 @@ import { dateSortDesc } from "./dateSortDesc";
 import { contentTypeCondition } from "./contentTypeCondition";
 import { getPostExcerpt } from "./getPostExcerpt";
 import { ContentType } from "../types";
+import { isTypeNote } from "./isTypeNote";
 
 interface FrontMatterItem {
   date: string | null;
@@ -42,9 +43,14 @@ export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
       return;
     }
 
+    const slugFileName = fileName.replace(".mdx", "").replace(".md", "");
+    const slug = isTypeNote(type) ? slugFileName : formatSlug(slugFileName);
+
+
+
     allFrontMatter.push({
       ...frontmatter,
-      slug: formatSlug(fileName.replace(".mdx", "").replace(".md", "")),
+      slug,
       date: frontmatter.date ? new Date(frontmatter.date).toISOString() : null,
       excerpt: excerpt ? excerpt : getPostExcerpt(content),
       fileName,

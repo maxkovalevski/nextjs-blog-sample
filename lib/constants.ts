@@ -1,7 +1,12 @@
 export const CONTENT_DIR = "content";
+//export const CONTENT_WEBSITE_DIR = "Bins/Website";
+
+export const NOTES_HOME_PAGE_CONTENT = "site-notes-index.md";
 
 export const CONTENT_TYPE_BLOG = "blog";
 export const CONTENT_TYPE_NOTE = "note";
+
+export const NOTES_URL = 'notes';
 
 export const EXCERPT_LENGTH = 150;
 
