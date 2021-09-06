@@ -2,13 +2,13 @@
 import { FC, useMemo } from "react";
 import { getMDXComponent } from "mdx-bundler/client";
 import NextImage from "next/image";
+
 import CustomLink from "./CustomLink";
-// import TOCInline from "./TOCInline";
 import { Pre } from "./Pre";
+import  { DEFAULT_LAYOUT } from '../lib/constants'
 
 export const MDXComponents = {
   Image: NextImage,
-  //   TOCInline,
   a: CustomLink,
   pre: Pre,
   wrapper: ({ components, layout, ...rest }: any) => {
@@ -17,11 +17,7 @@ export const MDXComponents = {
   },
 };
 
-// interface Props extends MDXContentProps {
-
-// }
-
-export const MDXLayoutRenderer: FC<any> = ({ layout, mdxSource, ...rest }) => {
+export const MDXLayoutRenderer: FC<any> = ({ layout = DEFAULT_LAYOUT, mdxSource, ...rest }) => {
   const MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource]);
 
   return <MDXLayout layout={layout} components={MDXComponents} {...rest} />;

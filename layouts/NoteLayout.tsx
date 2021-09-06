@@ -15,12 +15,10 @@ const postDateTemplate: Intl.DateTimeFormatOptions = {
 
 interface Props {
   frontMatter: PostFrontMatter;
-  next: any;
-  prev: any;
 }
 
-const PostLayout: FC<Props> = ({ frontMatter, next, prev, children }) => {
-  const { slug, date, title, tags } = frontMatter;
+const NoteLayout: FC<Props> = ({ frontMatter, children }) => {
+  const { slug, date, tags } = frontMatter;
 
   return (
     <>
@@ -50,38 +48,13 @@ const PostLayout: FC<Props> = ({ frontMatter, next, prev, children }) => {
             </div>
           )}
         </div>
-        <div>
-          <h1>{title}</h1>
-        </div>
         <div>{children}</div>
         <div className="pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
           <Link href={getTwitterDiscussUrl(slug)}>{"Discuss on Twitter"}</Link>
-        </div>
-        <div>
-          {(next || prev) && (
-            <div>
-              {prev && (
-                <div>
-                  <h2>Previous Article</h2>
-                  <div>
-                    <Link href={`/blog/${prev.slug}`}>{prev.title}</Link>
-                  </div>
-                </div>
-              )}
-              {next && (
-                <div>
-                  <h2>Next Article</h2>
-                  <div>
-                    <Link href={`/blog/${next.slug}`}>{next.title}</Link>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
         </div>
       </article>
     </>
   );
 };
 
-export default PostLayout;
+export default NoteLayout;

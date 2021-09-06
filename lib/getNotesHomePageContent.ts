@@ -3,7 +3,7 @@ import { getFileByName } from './getFileByName';
 
 
 export const getNotesHomePageContent = async () => {
-  const post = await getFileByName(NOTES_HOME_PAGE_CONTENT);
+  const post = await getFileByName(`${NOTES_HOME_PAGE_CONTENT}.md`);
 
   return post;
 }

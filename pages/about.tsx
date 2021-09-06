@@ -1,15 +1,15 @@
 import { NextPage } from "next";
 import React from "react";
 
-import { MDXLayoutRenderer } from "../../components/MDXLayoutRenderer";
-import { PAGE_LAYOUT } from "../../lib/constants";
-import { getNotesHomePageContent } from "../../lib/getNotesHomePageContent";
+import { MDXLayoutRenderer } from "../components/MDXLayoutRenderer";
+import { PAGE_LAYOUT } from "../lib/constants";
+import { getAboutPageContent } from "../lib/getAboutPageContent";
 
 interface Props {
   content: any;
 }
 
-const NotesPage: NextPage<Props> = ({ content }) => {
+const AboutPage: NextPage<Props> = ({ content }) => {
   const { frontMatter, mdxSource } = content;
 
   return (
@@ -22,7 +22,7 @@ const NotesPage: NextPage<Props> = ({ content }) => {
 };
 
 export const getStaticProps = async () => {
-  const content = await getNotesHomePageContent();
+  const content = await getAboutPageContent();
 
   return {
     props: {
@@ -31,4 +31,4 @@ export const getStaticProps = async () => {
   };
 };
 
-export default NotesPage;
+export default AboutPage;

@@ -4,8 +4,7 @@ import React from "react";
 
 import { MDXLayoutRenderer } from "../../components/MDXLayoutRenderer";
 
-import { POST_DEFAULT_LAYOUT } from "../../lib/constants";
-import { formatSlug } from "../../lib/formatSlug";
+import { NOTE_LAYOUT } from "../../lib/constants";
 import { getAllFilesFrontMatter } from "../../lib/getAllFilesFrontMatter";
 import { getFileByName } from "../../lib/getFileByName";
 import { getFiles } from "../../lib/getFiles";
@@ -21,9 +20,8 @@ const NotePage: NextPage<{
         <title>{note.title}</title>
         <meta name="description" content={note.excerpt} />
       </Head>
-      {/* <PostContent post={post} /> */}
       <MDXLayoutRenderer
-        layout={frontMatter.layout || POST_DEFAULT_LAYOUT}
+        layout={frontMatter.layout || NOTE_LAYOUT}
         // toc={toc}
         mdxSource={mdxSource}
         frontMatter={frontMatter}
