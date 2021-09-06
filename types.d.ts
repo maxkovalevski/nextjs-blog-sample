@@ -1,6 +1,6 @@
 export interface PostFrontMatter {
   title: string;
-  image: string;
+  image?: string;
   excerpt: string;
   date: string;
   slug: string;
@@ -17,9 +17,14 @@ export interface Post extends PostFrontMatter {
 
 export type ContentType = typeof CONTENT_TYPE_BLOG | typeof CONTENT_TYPE_NOTE;
 
-export interface PaginationData {
+export interface PaginationDataQuery {
   currentPage: string;
   totalPages: string;
+}
+
+export interface PaginationData {
+  currentPage: number;
+  totalPages: number;
 }
 
 export interface TableOfContentsItem {
@@ -29,4 +34,6 @@ export interface TableOfContentsItem {
 }
 
 export type TableOfContentsData = TableOfContentsItem[];
+
+export type TagsData = { [key: string]: number };
 

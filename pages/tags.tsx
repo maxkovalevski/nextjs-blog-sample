@@ -3,6 +3,7 @@ import { NextPage } from "next";
 
 import { getAllTags } from "../lib/getAllTags";
 import Link from "next/link";
+import { TagsData } from "../types";
 
 export async function getStaticProps() {
   const tags = getAllTags();
@@ -11,7 +12,7 @@ export async function getStaticProps() {
 }
 
 interface Props {
-  tags: { [key: string]: number };
+  tags: TagsData;
 }
 
 const TagsPage: NextPage<Props> = ({ tags }) => {
