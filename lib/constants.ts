@@ -4,6 +4,7 @@ export const CONTENT_DIR = "content";
 export const NOTES_HOME_PAGE_CONTENT = "site-notes-index";
 export const ABOUT_PAGE_CONTENT = "site-about";
 export const ABOUT_BLOCK_CONTENT = "site-about-block";
+export const BLURB_CONTENT = "site-blurb";
 
 export const CONTENT_TYPE_BLOG = "blog";
 export const CONTENT_TYPE_NOTE = "note";

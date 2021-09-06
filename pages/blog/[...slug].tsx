@@ -4,57 +4,66 @@ import React from "react";
 
 import { MDXLayoutRenderer } from "../../components/MDXLayoutRenderer";
 
-import { POST_LAYOUT } from "../../lib/constants";
+import { DEFAULT_LAYOUT, POST_LAYOUT } from "../../lib/constants";
 import { formatSlug } from "../../lib/formatSlug";
+import { getAboutBlockContent } from "../../lib/getAboutBlockContent";
 import { getAllFilesFrontMatter } from "../../lib/getAllFilesFrontMatter";
 import { getFileByName } from "../../lib/getFileByName";
 import { getFiles } from "../../lib/getFiles";
+import { PostFrontMatter, TableOfContentsData } from "../../types";
 
-const BlogPost: NextPage<{
-  post: any;
-  next: object;
-  prev: object;
-}> = ({ post, next, prev }) => {
+interface Props {
+  post: {
+    frontMatter: PostFrontMatter;
+    mdxSource: string;
+    toc: TableOfContentsData;
+  };
+  next: PostFrontMatter;
+  prev: PostFrontMatter;
+  aboutBlockContent: string,
+}
+
+const BlogPost: NextPage<Props> = ({ post, next, prev, aboutBlockContent }) => {
   const { mdxSource, frontMatter } = post;
 
   return (
     <>
       <Head>
-        <title>{post.title}</title>
-        <meta name="description" content={post.excerpt} />
+        <title>{frontMatter.title}</title>
+        <meta name="description" content={frontMatter.excerpt} />
       </Head>
       <MDXLayoutRenderer
         layout={frontMatter.layout || POST_LAYOUT}
-        // toc={toc}
         mdxSource={mdxSource}
         frontMatter={frontMatter}
         prev={prev}
         next={next}
       />
+      <div><MDXLayoutRenderer
+        layout={frontMatter.layout || DEFAULT_LAYOUT}
+        mdxSource={aboutBlockContent}
+      /></div>
     </>
   );
 };
 
 export async function getStaticProps({
   params,
-}: GetStaticPropsContext<{ slug: string[] }>) {
+  }: GetStaticPropsContext<{ slug: string[] }>): Promise<{
+    props: Props
+}> {
   const allPosts = await getAllFilesFrontMatter(["blog"]);
   const postIndex = allPosts.findIndex(
     (post) => formatSlug(post.slug) === params?.slug.join("/")
   );
-
   const prev = allPosts[postIndex + 1] || null;
   const next = allPosts[postIndex - 1] || null;
 
   const postData = allPosts[postIndex];
 
-  const post = await getFileByName(postData.fileName);
-  // const authorList = post.frontMatter.authors || ['default']
-  // const authorPromise = authorList.map(async (author) => {
-  //   const authorResults = await getFileBySlug('authors', [author])
-  //   return authorResults.frontMatter
-  // })
-  // const authorDetails = await Promise.all(authorPromise)
+  const post = await getFileByName(postData.fileName || '');
+
+  const aboutBlockContentData = await getAboutBlockContent();
 
   // rss
   // const rss = generateRss(allPosts)
@@ -63,9 +72,9 @@ export async function getStaticProps({
   return {
     props: {
       post,
-      // authorDetails,
       prev,
       next,
+      aboutBlockContent: aboutBlockContentData.mdxSource
     },
   };
 }

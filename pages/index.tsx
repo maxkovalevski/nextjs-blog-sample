@@ -7,17 +7,17 @@ import { Blurb } from "../components/Blurb";
 import { PostsList } from "../components/PostsList";
 import { Welcome } from "../components/Welcome";
 import { BLOG_POSTS_MAX_DISPLAY } from "../lib/constants";
-import { getAboutBlockContent } from "../lib/getAboutBlockContent";
 
 import { getAllFilesFrontMatter } from "../lib/getAllFilesFrontMatter";
+import { getBlurbContent } from "../lib/getBlurbContent";
 import { Post } from "../types";
 
 interface Props {
   posts: Post[];
-  aboutBlockContent: string;
+  blurbContent: string;
 }
 
-const Home: NextPage<Props> = ({ posts, aboutBlockContent }) => {
+const Home: NextPage<Props> = ({ posts, blurbContent }) => {
   return (
     <>
       <Head>
@@ -30,7 +30,7 @@ const Home: NextPage<Props> = ({ posts, aboutBlockContent }) => {
       <Welcome />
       <section>
         <h2>Blog Posts</h2>
-        <Blurb>{aboutBlockContent}</Blurb>
+        <Blurb>{blurbContent}</Blurb>
         <PostsList posts={posts.slice(0, BLOG_POSTS_MAX_DISPLAY)} />
         {posts.length > BLOG_POSTS_MAX_DISPLAY && (
           <div>
@@ -46,13 +46,13 @@ const Home: NextPage<Props> = ({ posts, aboutBlockContent }) => {
 
 export const getStaticProps = async () => {
   const posts = await getAllFilesFrontMatter(["blog"]);
-  const aboutBlockContentData = await getAboutBlockContent();
+  const blurbContentData = await getBlurbContent();
 
 
   return {
     props: {
       posts,
-      aboutBlockContent: aboutBlockContentData.mdxSource
+      blurbContent: blurbContentData.mdxSource
     },
   };
 };

@@ -2,23 +2,14 @@ import path from "path";
 import fs from "fs";
 import matter from "gray-matter";
 
-import { CONTENT_DIR, CONTENT_TYPE_BLOG, CONTENT_TYPE_NOTE } from "./constants";
+import { CONTENT_DIR } from "./constants";
 import { getAllFilesRecursively } from "./getAllFilesRecursively";
 import { formatSlug } from "./formatSlug";
 import { dateSortDesc } from "./dateSortDesc";
 import { contentTypeCondition } from "./contentTypeCondition";
 import { getPostExcerpt } from "./getPostExcerpt";
-import { ContentType } from "../types";
+import { ContentType, PostFrontMatter } from "../types";
 import { isTypeNote } from "./isTypeNote";
-
-interface FrontMatterItem {
-  date: string | null;
-  public?: boolean | null;
-  tags?: string[] | null;
-  slug: string;
-  fileName: string;
-  [key: string]: unknown;
-}
 
 export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
   const ROOT_DIR = process.cwd();
@@ -26,7 +17,7 @@ export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
 
   const files = getAllFilesRecursively(prefixPaths);
 
-  const allFrontMatter: FrontMatterItem[] = [];
+  const allFrontMatter: PostFrontMatter[] = [];
 
   files.forEach((file) => {
     // Replace is needed to work on Windows

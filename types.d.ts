@@ -8,6 +8,7 @@ export interface PostFrontMatter {
   tags?: string[];
   type?: ContentType;
   fileName?: string;
+  layout?: string;
 }
 
 export interface Post extends PostFrontMatter {
@@ -20,3 +21,12 @@ export interface PaginationData {
   currentPage: string;
   totalPages: string;
 }
+
+export interface TableOfContentsItem {
+  depth: number;
+  url: string;
+  value: string;
+}
+
+export type TableOfContentsData = TableOfContentsItem[];
+
