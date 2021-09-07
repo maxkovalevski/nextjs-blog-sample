@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { Avatar, Container, InfoCard, PageGrid, PageTitle, Pagination, PostsList, PostsSection, PostTag, PostTags, SidePanel } from "nocturnal-ui-react";
 import React from "react";
 
@@ -8,11 +9,12 @@ import { MDXLayoutRenderer } from "../components/MDXLayoutRenderer";
 import { BLOG_POSTS_MAX_DISPLAY, POSTS_PER_PAGE } from "../lib/constants";
 import { getAllFilesFrontMatter } from "../lib/getAllFilesFrontMatter";
 import { getBlurbContent } from "../lib/getBlurbContent";
+import { getAllTags } from "../lib/getAllTags";
 import { PaginationData, Post } from "../types";
 
 import avatarImg from '../static/img/avatar.jpeg';
-import { getAllTags } from "../lib/getAllTags";
-import Link from "next/link";
+import { transformPosts } from "../lib/transformPosts";
+import { transformTags } from "../lib/transformTags";
 
 interface Props {
   posts: Post[];
@@ -22,18 +24,7 @@ interface Props {
 }
 
 const Home: NextPage<Props> = ({ posts: postsData, blurbContent, paginationData, tags }) => {
-  const posts = postsData.map((post) =>  ({
-      id: post.slug,
-      title: post.title,
-      date: post.date,
-      excerpt: post.excerpt,
-      tags: post.tags?.map((tag) => ({
-          name: tag,
-          link: `/tags/${tag}`,
-        })) || [],
-      link: `/blog/${post.slug}`,
-      imgSrc: post.image,
-    }));
+  const posts = transformPosts(postsData);
 
   return (
     <MainLayout>
@@ -57,7 +48,7 @@ const Home: NextPage<Props> = ({ posts: postsData, blurbContent, paginationData,
             </InfoCard>
             <InfoCard>
               <h3 className="monospace">Tags</h3>
-              <PostTags direction="column" tags={tags.map((tag) =>  ({ name: tag, link: `/tags/${tag}` }))} maxCount={8} />
+              <PostTags direction="column" tags={transformTags(tags)} maxCount={8} />
               <Link href="/tags"><a className="underline theme-link">...more</a></Link>
             </InfoCard>
           </SidePanel>
