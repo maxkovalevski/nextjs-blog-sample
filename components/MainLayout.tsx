@@ -7,13 +7,20 @@ import {
 } from "nocturnal-ui-react";
 import Link from "next/link";
 import { useRouter } from 'next/router'
+import { ProgressBar } from "./ProgressBar";
 
 export const MainLayout: FC = ({ children }) => {
   const router = useRouter()
-  console.log('router', router)
 
   return (
     <>
+      <ProgressBar
+        color="#29D"
+        startPosition={0.3}
+        stopDelayMs={200}
+        height={3}
+        showOnShallow={true}
+      />
       <Header
         logoTitle="Next.js Blog Sample"
         linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
