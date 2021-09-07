@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "yarn copyImagesDir && next dev",
+    "build": "yarn copyImagesDir && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "copyImagesDir": "node ./scripts/copyDir.js 'content/Images' 'public/Images'"
   },
   "dependencies": {
     "@babel/core": "^7.15.0",

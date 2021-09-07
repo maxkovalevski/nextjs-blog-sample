@@ -35,3 +35,8 @@ yarn-error.log*
 
 # content
 content
+
+# it will be copied from content/Image before npm run build
+# we don't need this in repository
+public/Images
+
