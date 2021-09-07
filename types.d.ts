@@ -9,6 +9,7 @@ export interface PostFrontMatter {
   type?: ContentType;
   fileName?: string;
   layout?: string;
+  public?: boolean;
 }
 
 export interface Post extends PostFrontMatter {
@@ -37,3 +38,20 @@ export type TableOfContentsData = TableOfContentsItem[];
 
 export type TagsData = { [key: string]: number };
 
+export interface TagItem {
+    name: string;
+    link: string;
+};
+
+export interface PostItem {
+    id?: string;
+    title: string;
+    date: string | null;
+    excerpt: string;
+    tags: {
+        name: string;
+        link: string;
+    }[];
+    link: string;
+    imgSrc?: string;
+}

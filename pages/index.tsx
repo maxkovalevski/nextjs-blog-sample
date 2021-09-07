@@ -1,31 +1,25 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
-import { Avatar, Container, InfoCard, PageGrid, PageTitle, Pagination, PostsList, PostsSection, PostTag, PostTags, SidePanel } from "nocturnal-ui-react";
+import { Container, PageGrid, PageTitle, Pagination, PostsList, PostsSection } from "nocturnal-ui-react";
 import React from "react";
 
 import { MainLayout } from "../components/MainLayout";
-import { MDXLayoutRenderer } from "../components/MDXLayoutRenderer";
 import { BLOG_POSTS_MAX_DISPLAY, POSTS_PER_PAGE } from "../lib/constants";
 import { getAllFilesFrontMatter } from "../lib/getAllFilesFrontMatter";
-import { getBlurbContent } from "../lib/getBlurbContent";
-import { getAllTags } from "../lib/getAllTags";
-import { PaginationData, Post } from "../types";
+import { PaginationData, PostItem, TagItem } from "../types";
 
-import avatarImg from '../static/img/avatar.jpeg';
 import { transformPosts } from "../lib/transformPosts";
-import { transformTags } from "../lib/transformTags";
+import { getSidePanelData } from "../lib/getSidePanelData";
+import { SidePanel } from "../components/SidePanel";
 
 interface Props {
-  posts: Post[];
+  posts: PostItem[];
   blurbContent: string;
   paginationData: PaginationData;
-  tags: string[];
+  tags: TagItem[];
 }
 
-const Home: NextPage<Props> = ({ posts: postsData, blurbContent, paginationData, tags }) => {
-  const posts = transformPosts(postsData);
-
+const Home: NextPage<Props> = ({ posts, blurbContent, paginationData, tags }) => {
   return (
     <MainLayout>
       <Head>
@@ -39,19 +33,7 @@ const Home: NextPage<Props> = ({ posts: postsData, blurbContent, paginationData,
         <br />
         <PageTitle>Home</PageTitle>
         <PageGrid>
-          <SidePanel position="left">
-            <InfoCard>
-              <Avatar src={avatarImg.src} />
-              <MDXLayoutRenderer
-                mdxSource={blurbContent}
-              />
-            </InfoCard>
-            <InfoCard>
-              <h3 className="monospace">Tags</h3>
-              <PostTags direction="column" tags={transformTags(tags)} maxCount={8} />
-              <Link href="/tags"><a className="underline theme-link">...more</a></Link>
-            </InfoCard>
-          </SidePanel>
+          <SidePanel blurbContent={blurbContent} tags={tags} />
           <PostsSection>
             <PostsList posts={posts.slice(0, BLOG_POSTS_MAX_DISPLAY)} gridView="row" />
             {posts.length > BLOG_POSTS_MAX_DISPLAY && (
@@ -71,20 +53,20 @@ const Home: NextPage<Props> = ({ posts: postsData, blurbContent, paginationData,
 export const getStaticProps = async (): Promise<{
   props: Props
 }> => {
-  const posts = await getAllFilesFrontMatter(["blog"]);
-  const blurbContentData = await getBlurbContent();
+  const postsData = await getAllFilesFrontMatter(["blog"]);
   const paginationData = {
     currentPage: 1,
-    totalPages: Math.ceil(posts.length / POSTS_PER_PAGE),
+    totalPages: Math.ceil(postsData.length / POSTS_PER_PAGE),
   };
-  const tagsData = getAllTags();
+  const { blurbContent, tags } = await getSidePanelData();
+  const posts = transformPosts(postsData);
 
   return {
     props: {
       posts,
       paginationData,
-      blurbContent: blurbContentData.mdxSource,
-      tags: Object.keys(tagsData),
+      blurbContent,
+      tags,
     },
   };
 };

@@ -2,39 +2,65 @@ import React from "react";
 import { NextPage } from "next";
 
 import { getAllTags } from "../lib/getAllTags";
-import Link from "next/link";
 import { TagsData } from "../types";
+import { MainLayout } from "../components/MainLayout";
+import Head from "next/head";
+import { Container, PageGrid, PageTitle, PostsSection, TagsPile } from "nocturnal-ui-react";
 
-export async function getStaticProps() {
-  const tags = getAllTags();
+import { SidePanel } from "../components/SidePanel";
+import { getSidePanelData } from "../lib/getSidePanelData";
 
-  return { props: { tags } };
-}
 
 interface Props {
   tags: TagsData;
+  blurbContent: string;
+  sidePanelTags: {
+      name: string;
+      link?: string | undefined;
+  }[];
 }
 
-const TagsPage: NextPage<Props> = ({ tags }) => {
-  const sortedTags = Object.keys(tags).sort((a, b) => tags[b] - tags[a]);
-
+const TagsPage: NextPage<Props> = ({ tags, blurbContent, sidePanelTags }) => {
   return (
-    <div>
-      {Object.keys(tags).length === 0 && "No tags found."}
-      {sortedTags.map((t) => {
-        return (
-          <div key={t}>
-            {/* <Tag text={t} /> */}
-            <Link href={`/tags/${t.trim()}`}>
-              <a>
-                #{t} ({tags[t]})
-              </a>
-            </Link>
-          </div>
-        );
-      })}
-    </div>
+    <MainLayout>
+      <Head>
+        <title>Next.js Blog Sample</title>
+        <meta
+          name="description"
+          content="Elit sint cupidatat minim laborum ea."
+        />
+      </Head>
+      <Container>
+        <br />
+        <PageTitle>Home</PageTitle>
+        <PageGrid>
+          <SidePanel blurbContent={blurbContent} tags={sidePanelTags} />
+          <PostsSection>
+            <TagsPile tags={Object.keys(tags).map((tagKey) => ({
+                name: tagKey,
+                count: tags[tagKey],
+                linkPrefix: '/tags'
+            }))} />
+          </PostsSection>
+        </PageGrid>
+      </Container>
+    </MainLayout>
   );
 };
+
+export async function getStaticProps(): Promise<{
+  props: Props
+}> {
+  const tags = getAllTags();
+  const { blurbContent, tags: sidePanelTags } = await getSidePanelData();
+
+  return {
+    props: {
+      tags,
+      blurbContent,
+      sidePanelTags,
+    }
+  };
+}
 
 export default TagsPage;

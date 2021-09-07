@@ -1,27 +1,23 @@
 import { GetStaticPropsContext, NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
-import { Avatar, Container, InfoCard, PageGrid, PageTitle, Pagination, PostsList, PostsSection, PostTags, SidePanel } from "nocturnal-ui-react";
+import { Container, PageGrid, PageTitle, Pagination, PostsList, PostsSection } from "nocturnal-ui-react";
 import React from "react";
 
 import { MainLayout } from "../../../components/MainLayout";
-import { MDXLayoutRenderer } from "../../../components/MDXLayoutRenderer";
 import { BLOG_POSTS_MAX_DISPLAY, POSTS_PER_PAGE } from "../../../lib/constants";
 import { getAllFilesFrontMatter } from "../../../lib/getAllFilesFrontMatter";
-import { getAllTags } from "../../../lib/getAllTags";
-import { getBlurbContent } from "../../../lib/getBlurbContent";
 import { transformPosts } from "../../../lib/transformPosts";
-import { transformTags } from "../../../lib/transformTags";
-import { PaginationData, Post } from "../../../types";
+import { PaginationData, Post, TagItem } from "../../../types";
 
-import avatarImg from '../../../static/img/avatar.jpeg';
+import { getSidePanelData } from "../../../lib/getSidePanelData";
+import { SidePanel } from "../../../components/SidePanel";
 
 interface Props {
   posts: Post[];
   initialDisplayPosts: Post[];
   pagination: PaginationData;
   blurbContent: string;
-  tags: string[];
+  tags: TagItem[];
 }
 
 const PostPage: NextPage<Props> = ({ initialDisplayPosts, pagination: paginationData, tags, blurbContent }) => {
@@ -40,19 +36,7 @@ const PostPage: NextPage<Props> = ({ initialDisplayPosts, pagination: pagination
         <br />
         <PageTitle>Blog</PageTitle>
         <PageGrid>
-          <SidePanel position="left">
-            <InfoCard>
-              <Avatar src={avatarImg.src} />
-              <MDXLayoutRenderer
-                mdxSource={blurbContent}
-              />
-            </InfoCard>
-            <InfoCard>
-              <h3 className="monospace">Tags</h3>
-              <PostTags direction="column" tags={transformTags(tags)} maxCount={8} />
-              <Link href="/tags"><a className="underline theme-link">...more</a></Link>
-            </InfoCard>
-          </SidePanel>
+          <SidePanel blurbContent={blurbContent} tags={tags} />
           <PostsSection>
             <PostsList posts={posts} gridView="row" />
             <Pagination
@@ -97,16 +81,16 @@ export async function getStaticProps(
     currentPage: pageNumber,
     totalPages: Math.ceil(posts.length / POSTS_PER_PAGE),
   };
-  const blurbContentData = await getBlurbContent();
-  const tagsData = getAllTags();
+  const { blurbContent, tags } = await getSidePanelData();
+
 
   return {
     props: {
       posts,
       initialDisplayPosts,
       pagination,
-      blurbContent: blurbContentData.mdxSource,
-      tags: Object.keys(tagsData),
+      blurbContent,
+      tags,
     },
   };
 }
