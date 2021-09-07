@@ -15,6 +15,7 @@ import { remarkCodeTitles } from "./remarkCodeTitles";
 
 import { CONTENT_DIR, NOTES_URL } from "./constants";
 import { formatSlug } from "./formatSlug";
+import { PostFrontMatter } from "../types";
 
 const root = process.cwd();
 
@@ -103,9 +104,9 @@ export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permali
     toc,
     frontMatter: {
       //   readingTime: readingTime(code),
-      slug: slug || null,
       fileName,
-      ...frontmatter,
+      ...frontmatter as PostFrontMatter,
+      slug: slug || '',
       date: frontmatter.date ? new Date(frontmatter.date).toISOString() : null,
     },
   };

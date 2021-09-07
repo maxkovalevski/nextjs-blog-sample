@@ -27,7 +27,8 @@ export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
       return;
     }
     const source = fs.readFileSync(file, "utf8");
-    const { data: frontmatter, content } = matter(source);
+    const { data, content } = matter(source);
+    const frontmatter = data as PostFrontMatter;
     const { public: isPublic = false, type, excerpt } = frontmatter;
 
     if (!isPublic || !contentTypeCondition(contentTypes, type)) {

@@ -1,26 +1,18 @@
 import React, { FC } from "react";
-import { Logo } from "./Logo";
-import { Navigation } from "./Navigation";
 
 import {
-  Container,
   Footer,
   Header,
-  InfoCard,
   Navbar,
-  PageGrid,
-  PageTitle,
-  Pagination,
-  PostsList,
-  PostsSection,
-  SidePanel,
 } from "nocturnal-ui-react";
+import Link from "next/link";
 
 export const MainLayout: FC = ({ children }) => {
   return (
     <>
       <Header
         logoTitle="Next.js Blog Sample"
+        linkView={({ to, children, ...props }) => <Link href={to} {...props}><a>{children}</a></Link>}
         navItems={[
           {
             path: "/",
@@ -44,6 +36,7 @@ export const MainLayout: FC = ({ children }) => {
       <Footer>
         <section className="copyright">@ Max Kowalevski 2021</section>
         <Navbar
+          linkView={({ to, children, ...props }) => <Link href={to} {...props}><a>{children}</a></Link>}
           items={[
             {
               path: "/",

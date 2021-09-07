@@ -25,7 +25,7 @@ export const SidePanel: FC<Props> = ({ blurbContent, tags }) => {
         </InfoCard>
         <InfoCard>
           <h3 className="monospace">Tags</h3>
-          <PostTags direction="column" tags={tags} maxCount={8} />
+          <PostTags direction="column" tags={tags} maxCount={8} linkView={({ to, children, ...props }) => <Link href={to} {...props}><a>{children}</a></Link>} />
           <Link href="/tags"><a className="underline theme-link">...more</a></Link>
         </InfoCard>
       </Panel>

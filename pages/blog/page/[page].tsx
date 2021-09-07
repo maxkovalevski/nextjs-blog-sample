@@ -11,6 +11,7 @@ import { PaginationData, Post, TagItem } from "../../../types";
 
 import { getSidePanelData } from "../../../lib/getSidePanelData";
 import { SidePanel } from "../../../components/SidePanel";
+import Link from "next/link";
 
 interface Props {
   posts: Post[];
@@ -38,11 +39,12 @@ const PostPage: NextPage<Props> = ({ initialDisplayPosts, pagination: pagination
         <PageGrid>
           <SidePanel blurbContent={blurbContent} tags={tags} />
           <PostsSection>
-            <PostsList posts={posts} gridView="row" />
+            <PostsList posts={posts} gridView="row" linkView={({ to, children, ...props }) => <Link href={to} {...props}><a>{children}</a></Link>} />
             <Pagination
               routePath="/blog"
               currentPage={paginationData.currentPage}
               pagesCount={paginationData.totalPages}
+              linkView={({ to, children, ...props }) => <Link href={to} {...props}><a>{children}</a></Link>}
             />
           </PostsSection>
         </PageGrid>

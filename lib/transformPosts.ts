@@ -11,6 +11,6 @@ export const transformPosts = (posts: PostFrontMatter[]) => posts.map((post) => 
       link: `/tags/${tag}`,
     })) || [],
   link: `/${isTypeNote(post.type) ? 'notes' : 'blog'}/${post.slug}`,
-  ...(!!post.image ? { imgSrc: post.image } : {})
+  ...(!!post.image ? { imgSrc: `/${post.image}` } : {})
 }));
 

@@ -2,7 +2,7 @@ export interface PostFrontMatter {
   title: string;
   image?: string;
   excerpt: string;
-  date: string;
+  date: string | null;
   slug: string;
   content: string;
   tags?: string[];

@@ -1,16 +1,17 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Link from 'next/link';
 import { Container, PageGrid, PageTitle, Pagination, PostsList, PostsSection } from "nocturnal-ui-react";
 import React from "react";
 
-import { MainLayout } from "../components/MainLayout";
-import { BLOG_POSTS_MAX_DISPLAY, POSTS_PER_PAGE } from "../lib/constants";
-import { getAllFilesFrontMatter } from "../lib/getAllFilesFrontMatter";
 import { PaginationData, PostItem, TagItem } from "../types";
 
+import { MainLayout } from "../components/MainLayout";
+import { SidePanel } from "../components/SidePanel";
+import { BLOG_POSTS_MAX_DISPLAY, POSTS_PER_PAGE } from "../lib/constants";
+import { getAllFilesFrontMatter } from "../lib/getAllFilesFrontMatter";
 import { transformPosts } from "../lib/transformPosts";
 import { getSidePanelData } from "../lib/getSidePanelData";
-import { SidePanel } from "../components/SidePanel";
 
 interface Props {
   posts: PostItem[];
@@ -18,6 +19,7 @@ interface Props {
   paginationData: PaginationData;
   tags: TagItem[];
 }
+
 
 const Home: NextPage<Props> = ({ posts, blurbContent, paginationData, tags }) => {
   return (
@@ -35,12 +37,13 @@ const Home: NextPage<Props> = ({ posts, blurbContent, paginationData, tags }) =>
         <PageGrid>
           <SidePanel blurbContent={blurbContent} tags={tags} />
           <PostsSection>
-            <PostsList posts={posts.slice(0, BLOG_POSTS_MAX_DISPLAY)} gridView="row" />
+            <PostsList posts={posts.slice(0, BLOG_POSTS_MAX_DISPLAY)} gridView="row" linkView={({ to, children, ...props }) => <Link href={to} {...props}><a>{children}</a></Link>} />
             {posts.length > BLOG_POSTS_MAX_DISPLAY && (
               <Pagination
                 routePath="/blog"
                 currentPage={paginationData.currentPage}
                 pagesCount={paginationData.totalPages}
+                linkView={({ to, children, ...props }) => <Link href={to} {...props}><a>{children}</a></Link>}
               />
             )}
           </PostsSection>

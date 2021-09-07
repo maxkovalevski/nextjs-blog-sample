@@ -1,12 +1,12 @@
 import React from "react";
 import { NextPage } from "next";
+import Head from "next/head";
+import Link from "next/link";
+import { Container, PageGrid, PageTitle, PostsSection, TagsPile } from "nocturnal-ui-react";
 
 import { getAllTags } from "../lib/getAllTags";
 import { TagsData } from "../types";
 import { MainLayout } from "../components/MainLayout";
-import Head from "next/head";
-import { Container, PageGrid, PageTitle, PostsSection, TagsPile } from "nocturnal-ui-react";
-
 import { SidePanel } from "../components/SidePanel";
 import { getSidePanelData } from "../lib/getSidePanelData";
 
@@ -20,7 +20,13 @@ interface Props {
   }[];
 }
 
-const TagsPage: NextPage<Props> = ({ tags, blurbContent, sidePanelTags }) => {
+const TagsPage: NextPage<Props> = ({ tags: tagsData, blurbContent, sidePanelTags }) => {
+  const tags = Object.keys(tagsData).map((tagKey: string) => ({
+      name: tagKey,
+      count: tagsData[tagKey],
+      link: '/tags'
+  }));
+
   return (
     <MainLayout>
       <Head>
@@ -32,15 +38,14 @@ const TagsPage: NextPage<Props> = ({ tags, blurbContent, sidePanelTags }) => {
       </Head>
       <Container>
         <br />
-        <PageTitle>Home</PageTitle>
+        <PageTitle>Tags</PageTitle>
         <PageGrid>
           <SidePanel blurbContent={blurbContent} tags={sidePanelTags} />
           <PostsSection>
-            <TagsPile tags={Object.keys(tags).map((tagKey) => ({
-                name: tagKey,
-                count: tags[tagKey],
-                linkPrefix: '/tags'
-            }))} />
+            <TagsPile
+              tags={tags}
+              linkView={({ to, children, ...props }) => <Link href={to} {...props}><a>{children}</a></Link>}
+            />
           </PostsSection>
         </PageGrid>
       </Container>
