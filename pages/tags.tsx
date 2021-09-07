@@ -2,7 +2,7 @@ import React from "react";
 import { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { Container, PageGrid, PageTitle, PostsSection, TagsPile } from "nocturnal-ui-react";
+import { Breadcrumbs, Container, PageGrid, PageTitle, PostsSection, TagsPile } from "nocturnal-ui-react";
 
 import { getAllTags } from "../lib/getAllTags";
 import { TagsData } from "../types";
@@ -12,7 +12,11 @@ import { getSidePanelData } from "../lib/getSidePanelData";
 
 
 interface Props {
-  tags: TagsData;
+  tags: {
+      name: string;
+      link: string;
+      count: number;
+  }[];
   blurbContent: string;
   sidePanelTags: {
       name: string;
@@ -20,13 +24,7 @@ interface Props {
   }[];
 }
 
-const TagsPage: NextPage<Props> = ({ tags: tagsData, blurbContent, sidePanelTags }) => {
-  const tags = Object.keys(tagsData).map((tagKey: string) => ({
-      name: tagKey,
-      count: tagsData[tagKey],
-      link: '/tags'
-  }));
-
+const TagsPage: NextPage<Props> = ({ tags, blurbContent, sidePanelTags }) => {
   return (
     <MainLayout>
       <Head>
@@ -36,15 +34,19 @@ const TagsPage: NextPage<Props> = ({ tags: tagsData, blurbContent, sidePanelTags
           content="Elit sint cupidatat minim laborum ea."
         />
       </Head>
+      <br />
       <Container>
-        <br />
+        <Breadcrumbs
+          items={[{ to: "/", label: "Home" }, { label: "Tags" }]}
+          linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
+        />
         <PageTitle>Tags</PageTitle>
         <PageGrid>
           <SidePanel blurbContent={blurbContent} tags={sidePanelTags} />
           <PostsSection>
             <TagsPile
               tags={tags}
-              linkView={({ to, children, ...props }) => <Link href={to} {...props}><a>{children}</a></Link>}
+              linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
             />
           </PostsSection>
         </PageGrid>
@@ -56,8 +58,13 @@ const TagsPage: NextPage<Props> = ({ tags: tagsData, blurbContent, sidePanelTags
 export async function getStaticProps(): Promise<{
   props: Props
 }> {
-  const tags = getAllTags();
+  const tagsData = getAllTags();
   const { blurbContent, tags: sidePanelTags } = await getSidePanelData();
+  const tags = Object.keys(tagsData).map((tagKey: string) => ({
+      name: tagKey,
+      count: tagsData[tagKey],
+      link: `/tags/${tagKey}`
+  }));
 
   return {
     props: {

@@ -23,7 +23,6 @@ const NotePage: NextPage<{
       </Head>
       <MDXLayoutRenderer
         layout={frontMatter.layout || NOTE_LAYOUT}
-        // toc={toc}
         mdxSource={mdxSource}
         frontMatter={frontMatter}
       />

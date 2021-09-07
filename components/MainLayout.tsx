@@ -6,13 +6,17 @@ import {
   Navbar,
 } from "nocturnal-ui-react";
 import Link from "next/link";
+import { useRouter } from 'next/router'
 
 export const MainLayout: FC = ({ children }) => {
+  const router = useRouter()
+  console.log('router', router)
+
   return (
     <>
       <Header
         logoTitle="Next.js Blog Sample"
-        linkView={({ to, children, ...props }) => <Link href={to} {...props}><a>{children}</a></Link>}
+        linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
         navItems={[
           {
             path: "/",
@@ -36,7 +40,8 @@ export const MainLayout: FC = ({ children }) => {
       <Footer>
         <section className="copyright">@ Max Kowalevski 2021</section>
         <Navbar
-          linkView={({ to, children, ...props }) => <Link href={to} {...props}><a>{children}</a></Link>}
+        currentPath={router.pathname}
+          linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
           items={[
             {
               path: "/",

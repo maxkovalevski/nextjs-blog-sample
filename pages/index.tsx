@@ -31,19 +31,19 @@ const Home: NextPage<Props> = ({ posts, blurbContent, paginationData, tags }) =>
           content="Elit sint cupidatat minim laborum ea."
         />
       </Head>
+      <br />
       <Container>
-        <br />
         <PageTitle>Home</PageTitle>
         <PageGrid>
           <SidePanel blurbContent={blurbContent} tags={tags} />
           <PostsSection>
-            <PostsList posts={posts.slice(0, BLOG_POSTS_MAX_DISPLAY)} gridView="row" linkView={({ to, children, ...props }) => <Link href={to} {...props}><a>{children}</a></Link>} />
+            <PostsList posts={posts.slice(0, BLOG_POSTS_MAX_DISPLAY)} gridView="row" linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>} />
             {posts.length > BLOG_POSTS_MAX_DISPLAY && (
               <Pagination
                 routePath="/blog"
                 currentPage={paginationData.currentPage}
                 pagesCount={paginationData.totalPages}
-                linkView={({ to, children, ...props }) => <Link href={to} {...props}><a>{children}</a></Link>}
+                linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
               />
             )}
           </PostsSection>

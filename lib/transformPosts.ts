@@ -1,7 +1,7 @@
-import { PostFrontMatter } from "../types";
+import { PostFrontMatter, PostItem } from "../types";
 import { isTypeNote } from "./isTypeNote";
 
-export const transformPosts = (posts: PostFrontMatter[]) => posts.map((post) =>  ({
+export const transformPosts = (posts: PostFrontMatter[]): PostItem[] => posts.map((post) =>  ({
   id: post.slug,
   title: post.title,
   date: post.date,
