@@ -7,25 +7,29 @@ const flattenArray = (input: (string | string[])[]) =>
     []
   );
 
-const walkDir = (fullPath: string): string | string[] => {
+const walkDir = (fullPath: string, extensions: string[]): string | string[] => {
   return fs.statSync(fullPath).isFile()
     ? fullPath
-    : getAllFilesRecursively(fullPath);
+    : getAllFilesRecursively(fullPath, extensions);
 };
 
 const pathJoinPrefix = (prefix: string) => (extraPath: string) =>
   path.join(prefix, extraPath);
 
-export const getAllFilesRecursively = (folder: string): string[] => {
+export const getAllFilesRecursively = (folder: string, extensions: string[]): string[] => {
   const dir = fs.readdirSync(folder);
 
   const paths = dir
     .map((val) => {
       const fullPath = pathJoinPrefix(folder)(val);
 
-      return walkDir(fullPath);
+      return walkDir(fullPath, extensions);
     })
     .filter(Boolean);
 
-  return flattenArray(paths);
+  const result = flattenArray(paths).filter((filePath) => {
+    return extensions.some((ext) => filePath.includes(`.${ext}`));
+  });
+
+  return result;
 };

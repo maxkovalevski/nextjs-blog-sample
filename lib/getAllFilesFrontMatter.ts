@@ -10,12 +10,13 @@ import { contentTypeCondition } from "./contentTypeCondition";
 import { getPostExcerpt } from "./getPostExcerpt";
 import { ContentType, PostFrontMatter } from "../types";
 import { isTypeNote } from "./isTypeNote";
+import { getFormattedDate } from "./getFormattedDate";
 
 export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
   const ROOT_DIR = process.cwd();
   const prefixPaths = path.join(ROOT_DIR, CONTENT_DIR);
 
-  const files = getAllFilesRecursively(prefixPaths);
+  const files = getAllFilesRecursively(prefixPaths, ['md', 'mdx']);
 
   const allFrontMatter: PostFrontMatter[] = [];
 
@@ -38,12 +39,12 @@ export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
     const slugFileName = fileName.replace(".mdx", "").replace(".md", "");
     const slug = isTypeNote(type) ? slugFileName : formatSlug(slugFileName);
 
-
+    const formattedDate = getFormattedDate(frontmatter.date || '');
 
     allFrontMatter.push({
       ...frontmatter,
       slug,
-      date: frontmatter.date ? new Date(frontmatter.date).toISOString() : null,
+      date: formattedDate,
       excerpt: excerpt ? excerpt : getPostExcerpt(content),
       fileName,
       content,

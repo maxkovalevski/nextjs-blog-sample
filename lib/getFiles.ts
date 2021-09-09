@@ -7,7 +7,7 @@ const root = process.cwd();
 
 export const getFiles = () => {
   const prefixPaths = path.join(root, CONTENT_DIR);
-  const files = getAllFilesRecursively(prefixPaths);
+  const files = getAllFilesRecursively(prefixPaths, ['md', 'mdx']);
 
   return files.map((file) =>
     file.slice(prefixPaths.length + 1).replace(/\\/g, "/")

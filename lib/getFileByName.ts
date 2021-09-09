@@ -2,8 +2,6 @@ import { bundleMDX } from "mdx-bundler";
 import path from "path";
 import fs from "fs";
 
-import { visit } from "unist-util-visit";
-
 import remarkSlug from "remark-slug";
 import remarkAutolinkHeadings from "remark-autolink-headings";
 import remarkGfm from "remark-gfm";
@@ -19,24 +17,10 @@ import { remarkCodeTitles } from "./remarkCodeTitles";
 import { CONTENT_DIR, NOTES_URL } from "./constants";
 import { formatSlug } from "./formatSlug";
 import { PostFrontMatter } from "../types";
+import { getFormattedDate } from "./getFormattedDate";
 
 const root = process.cwd();
 
-const tokenClassNames: {
-  [key: string]: string
-} = {
-  tag: 'text-code-red',
-  'attr-name': 'text-code-yellow',
-  'attr-value': 'text-code-green',
-  deleted: 'text-code-red',
-  inserted: 'text-code-green',
-  punctuation: 'text-code-white',
-  keyword: 'text-code-purple',
-  string: 'text-code-green',
-  function: 'text-code-blue',
-  boolean: 'text-code-red',
-  comment: 'text-gray-400 italic',
-}
 
 export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permalinkPrefix = NOTES_URL) => {
   const slug = formatSlug(fileName);
@@ -118,6 +102,9 @@ export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permali
     },
   });
 
+  // 2021-07-29 17:00
+  const formattedDate = getFormattedDate(frontmatter.date);
+
   return {
     mdxSource: code,
     toc,
@@ -126,7 +113,7 @@ export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permali
       fileName,
       ...frontmatter as PostFrontMatter,
       slug: slug || '',
-      date: frontmatter.date ? new Date(frontmatter.date).toISOString() : null,
+      date: formattedDate,
     },
   };
 };

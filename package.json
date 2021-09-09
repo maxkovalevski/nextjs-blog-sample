@@ -7,7 +7,8 @@
     "build": "yarn copyImagesDir && next build",
     "start": "next start",
     "lint": "next lint",
-    "copyImagesDir": "node ./scripts/copyDir.js 'content/Images' 'public/Images'"
+    "copyImagesDir": "node ./scripts/copyDir.js 'content/Images' 'public/Images'",
+    "ts:check": "tsc --noEmit"
   },
   "dependencies": {
     "@babel/core": "7.15.0",
@@ -18,6 +19,7 @@
     "@mdx-js/mdx": "1.6.22",
     "@mdx-js/util": "1.6.22",
     "@sindresorhus/slugify": "2.1.0",
+    "date-fns": "^2.23.0",
     "esbuild": "0.12.24",
     "gray-matter": "4.0.3",
     "hast-util-to-html": "^8.0.2",
