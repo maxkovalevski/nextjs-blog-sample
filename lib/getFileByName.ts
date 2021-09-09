@@ -2,12 +2,15 @@ import { bundleMDX } from "mdx-bundler";
 import path from "path";
 import fs from "fs";
 
+import { visit } from "unist-util-visit";
+
 import remarkSlug from "remark-slug";
 import remarkAutolinkHeadings from "remark-autolink-headings";
 import remarkGfm from "remark-gfm";
 import remarkFootnotes from "remark-footnotes";
 import remarkMath from "remark-math";
 import remarkWikiLink from 'remark-wiki-link';
+import rehypePrism from 'rehype-prism-plus';
 
 import { remarkTocHeadings } from "./remarkTocHeadings";
 import { remarkImgToJsx } from "./remarkImgToJsx";
@@ -18,6 +21,22 @@ import { formatSlug } from "./formatSlug";
 import { PostFrontMatter } from "../types";
 
 const root = process.cwd();
+
+const tokenClassNames: {
+  [key: string]: string
+} = {
+  tag: 'text-code-red',
+  'attr-name': 'text-code-yellow',
+  'attr-value': 'text-code-green',
+  deleted: 'text-code-red',
+  inserted: 'text-code-green',
+  punctuation: 'text-code-white',
+  keyword: 'text-code-purple',
+  string: 'text-code-green',
+  function: 'text-code-blue',
+  boolean: 'text-code-red',
+  comment: 'text-gray-400 italic',
+}
 
 export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permalinkPrefix = NOTES_URL) => {
   const slug = formatSlug(fileName);
@@ -75,17 +94,17 @@ export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permali
       options.rehypePlugins = [
         ...(options.rehypePlugins ?? []),
         // rehypeKatex,
-        // [rehypePrismPlus, { ignoreMissing: true }],
-        // () => {
-        //   return (tree) => {
-        //     visit(tree, "element", (node) => {
-        //       let [token, type] = node.properties.className || [];
-        //       if (token === "token") {
-        //         node.properties.className = [tokenClassNames[type]];
-        //       }
-        //     });
-        //   };
-        // },
+       [rehypePrism, { showLineNumbers: true, ignoreMissing: true }],
+         //() => {
+           //return (tree) => {
+             //visit(tree, "element", (node) => {
+               //let [token, type] = node.properties.className || [];
+               //if (token === "token") {
+                 //node.properties.className = [tokenClassNames[type]];
+               //}
+             //});
+           //};
+         //},
       ];
       return options;
     },

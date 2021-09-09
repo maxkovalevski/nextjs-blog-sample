@@ -7,7 +7,7 @@ import { MainLayout } from "../../../components/MainLayout";
 import { BLOG_POSTS_MAX_DISPLAY, POSTS_PER_PAGE } from "../../../lib/constants";
 import { getAllFilesFrontMatter } from "../../../lib/getAllFilesFrontMatter";
 import { transformPosts } from "../../../lib/transformPosts";
-import { PaginationData, Post, PostItem, TagItem } from "../../../types";
+import { PaginationData, PostItem, TagItem } from "../../../types";
 
 import { getSidePanelData } from "../../../lib/getSidePanelData";
 import { SidePanel } from "../../../components/SidePanel";

@@ -27,7 +27,7 @@ export const Pre: FC = (props) => {
       onMouseLeave={onExit}
       className="relative"
     >
-      {hovered && (
+      {/*{hovered && (
         <button
           aria-label="Copy code"
           type="button"
@@ -66,9 +66,9 @@ export const Pre: FC = (props) => {
             )}
           </svg>
         </button>
-      )}
+      )}*/}
 
-      <pre>{props.children}</pre>
+      <pre className="prism-code">{props.children}</pre>
     </div>
   );
 };

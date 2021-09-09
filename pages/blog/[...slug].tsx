@@ -39,10 +39,6 @@ const BlogPost: NextPage<Props> = ({ post, next, prev, aboutBlockContent }) => {
         prev={prev}
         next={next}
       />
-      <div><MDXLayoutRenderer
-        layout={frontMatter.layout || DEFAULT_LAYOUT}
-        mdxSource={aboutBlockContent}
-      /></div>
     </>
   );
 };

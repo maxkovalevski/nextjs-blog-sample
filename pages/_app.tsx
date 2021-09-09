@@ -3,6 +3,8 @@ import Head from "next/head";
 
 import "nocturnal-ui-react/nocturnal-ui.css";
 
+import "../styles/code-highlight.css";
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

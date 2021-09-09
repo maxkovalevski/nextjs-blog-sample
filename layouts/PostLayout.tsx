@@ -1,10 +1,14 @@
 import React, { FC } from "react";
 import Link from "next/link";
 
+import { Breadcrumbs, BtnBack, Container, ContentCard, PostContent, PostInfo, PostTags } from 'nocturnal-ui-react';
+
 import { PostFrontMatter } from "../types";
 
 import siteMetadata from "../siteMetadata";
 import { getTwitterDiscussUrl } from "../lib/getTwitterDiscussUrl";
+import { transformTags } from "../lib/transformTags";
+import { MainLayout } from "../components/MainLayout";
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: "long",
@@ -20,11 +24,30 @@ interface Props {
 }
 
 const PostLayout: FC<Props> = ({ frontMatter, next, prev, children }) => {
-  const { slug, date, title, tags } = frontMatter;
+  const { slug, date, title, tags: tagsData, image } = frontMatter;
+  const tags = transformTags(tagsData || []);
+
 
   return (
-    <>
-      <article>
+    <MainLayout>
+      <br />
+      <Container>
+        <BtnBack type="link" to="/blog" linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}>
+          Go Back To Blog
+        </BtnBack>
+        <article>
+          <ContentCard>
+            <header>
+              <h1>{title}</h1>
+              <PostInfo date={date}/>
+              <PostTags tags={tags} linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>} />
+              <hr />
+            </header>
+            <div>{children}</div>
+          </ContentCard>
+        </article>
+      </Container>
+      {/*<article>
         <div>
           <dt className="sr-only">Published on</dt>
           <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
@@ -79,8 +102,8 @@ const PostLayout: FC<Props> = ({ frontMatter, next, prev, children }) => {
             </div>
           )}
         </div>
-      </article>
-    </>
+      </article>*/}
+    </MainLayout>
   );
 };
 

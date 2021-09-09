@@ -7,6 +7,7 @@ import {
 } from "nocturnal-ui-react";
 import Link from "next/link";
 import { useRouter } from 'next/router'
+
 import { ProgressBar } from "./ProgressBar";
 
 export const MainLayout: FC = ({ children }) => {
@@ -22,6 +23,7 @@ export const MainLayout: FC = ({ children }) => {
         showOnShallow={true}
       />
       <Header
+        currentPath={router.pathname}
         logoTitle="Next.js Blog Sample"
         linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
         navItems={[
@@ -47,7 +49,7 @@ export const MainLayout: FC = ({ children }) => {
       <Footer>
         <section className="copyright">@ Max Kowalevski 2021</section>
         <Navbar
-        currentPath={router.pathname}
+          currentPath={router.pathname}
           linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
           items={[
             {
