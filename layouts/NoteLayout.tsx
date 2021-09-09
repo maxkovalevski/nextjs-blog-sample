@@ -1,10 +1,13 @@
 import React, { FC } from "react";
-import Link from "next/link";
+import { Container, ContentCard, PostInfo, BtnBack, PostTags } from "nocturnal-ui-react";
 
 import { PostFrontMatter } from "../types";
 
 import siteMetadata from "../siteMetadata";
 import { getTwitterDiscussUrl } from "../lib/getTwitterDiscussUrl";
+import { MainLayout } from "../components/MainLayout";
+import { LinkView } from '../components/LinkView';
+import { transformTags } from "../lib/transformTags";
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: "long",
@@ -18,42 +21,28 @@ interface Props {
 }
 
 const NoteLayout: FC<Props> = ({ frontMatter, children }) => {
-  const { slug, date, tags } = frontMatter;
+  const { slug, date, tags: tagsData } = frontMatter;
+  const tags = transformTags(tagsData || []);
 
   return (
-    <>
-      <article>
-        <div>
-          <dt className="sr-only">Published on</dt>
-          <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-            {date && <time dateTime={date}>
-              {new Date(date).toLocaleDateString(
-                siteMetadata.locale,
-                postDateTemplate
-              )}
-            </time>}
-          </dd>
-        </div>
-        <div>
-          {tags && (
-            <div>
-              <h2>Tags</h2>
-              <div>
-                {tags.map((tag) => (
-                  <Link href={`/tags/${tag}`} key={tag}>
-                    <a>{tag.split(" ").join("-")}</a>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-        <div>{children}</div>
-        <div className="pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
-          <Link href={getTwitterDiscussUrl(slug)}>{"Discuss on Twitter"}</Link>
-        </div>
-      </article>
-    </>
+    <MainLayout>
+      <br />
+      <Container>
+        <BtnBack type="link" to="/notes" linkView={(props) => <LinkView {...props} />}>
+          Go Back To Notes
+        </BtnBack>
+        <article>
+          <ContentCard>
+            <header>
+              <PostInfo date={date}/>
+              <PostTags tags={tags} linkView={(props) => <LinkView {...props} />} />
+              <hr />
+            </header>
+            <div>{children}</div>
+          </ContentCard>
+        </article>
+      </Container>
+    </MainLayout>
   );
 };
 

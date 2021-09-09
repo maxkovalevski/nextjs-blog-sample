@@ -1,7 +1,6 @@
 import { GetStaticPropsContext, NextPage } from "next";
 import Head from "next/head";
 import React from "react";
-import { MainLayout } from "../../components/MainLayout";
 
 import { MDXLayoutRenderer } from "../../components/MDXLayoutRenderer";
 
@@ -16,7 +15,7 @@ const NotePage: NextPage<{
   const { mdxSource, frontMatter } = note;
 
   return (
-    <MainLayout>
+    <>
       <Head>
         <title>{note.title}</title>
         <meta name="description" content={note.excerpt} />
@@ -26,7 +25,7 @@ const NotePage: NextPage<{
         mdxSource={mdxSource}
         frontMatter={frontMatter}
       />
-    </MainLayout>
+    </>
   );
 };
 
