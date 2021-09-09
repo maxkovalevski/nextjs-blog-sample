@@ -9,6 +9,7 @@ import { TagsData } from "../types";
 import { MainLayout } from "../components/MainLayout";
 import { SidePanel } from "../components/SidePanel";
 import { getSidePanelData } from "../lib/getSidePanelData";
+import { LinkView } from "../components/LinkView";
 
 
 interface Props {
@@ -38,7 +39,7 @@ const TagsPage: NextPage<Props> = ({ tags, blurbContent, sidePanelTags }) => {
       <Container>
         <Breadcrumbs
           items={[{ to: "/", label: "Home" }, { label: "Tags" }]}
-          linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
+          linkView={(props) => <LinkView {...props} />}
         />
         <PageTitle>Tags</PageTitle>
         <PageGrid>
@@ -46,7 +47,7 @@ const TagsPage: NextPage<Props> = ({ tags, blurbContent, sidePanelTags }) => {
           <PostsSection>
             <TagsPile
               tags={tags}
-              linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
+              linkView={(props) => <LinkView {...props} />}
             />
           </PostsSection>
         </PageGrid>

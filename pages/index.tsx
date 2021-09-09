@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from 'next/link';
+import Image from 'next/image';
 import { Container, PageGrid, PageTitle, Pagination, PostsList, PostsSection } from "nocturnal-ui-react";
 import React from "react";
 
@@ -12,6 +13,8 @@ import { BLOG_POSTS_MAX_DISPLAY, POSTS_PER_PAGE } from "../lib/constants";
 import { getAllFilesFrontMatter } from "../lib/getAllFilesFrontMatter";
 import { transformPosts } from "../lib/transformPosts";
 import { getSidePanelData } from "../lib/getSidePanelData";
+import { PostCardThumbnail } from "../components/PostCardThumbnail";
+import { LinkView } from "../components/LinkView";
 
 interface Props {
   posts: PostItem[];
@@ -37,13 +40,18 @@ const Home: NextPage<Props> = ({ posts, blurbContent, paginationData, tags }) =>
         <PageGrid>
           <SidePanel blurbContent={blurbContent} tags={tags} />
           <PostsSection>
-            <PostsList posts={posts.slice(0, BLOG_POSTS_MAX_DISPLAY)} gridView="row" linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>} />
+            <PostsList
+              posts={posts.slice(0, BLOG_POSTS_MAX_DISPLAY)}
+              gridView="row"
+              linkView={(props) => <LinkView {...props} />}
+              imgView={(props) => <PostCardThumbnail {...props} />}
+            />
             {posts.length > BLOG_POSTS_MAX_DISPLAY && (
               <Pagination
                 routePath="/blog"
                 currentPage={paginationData.currentPage}
                 pagesCount={paginationData.totalPages}
-                linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
+                linkView={(props) => <LinkView {...props} />}
               />
             )}
           </PostsSection>

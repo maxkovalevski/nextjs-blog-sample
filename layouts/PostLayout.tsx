@@ -1,21 +1,16 @@
 import React, { FC } from "react";
 import Link from "next/link";
+import Image from 'next/image';
 
-import { Breadcrumbs, BtnBack, Container, ContentCard, PostContent, PostInfo, PostTags } from 'nocturnal-ui-react';
+import { BtnBack, Container, ContentCard, PostInfo, PostTags } from 'nocturnal-ui-react';
 
 import { PostFrontMatter } from "../types";
 
-import siteMetadata from "../siteMetadata";
-import { getTwitterDiscussUrl } from "../lib/getTwitterDiscussUrl";
+//import { getTwitterDiscussUrl } from "../lib/getTwitterDiscussUrl";
 import { transformTags } from "../lib/transformTags";
 import { MainLayout } from "../components/MainLayout";
-
-const postDateTemplate: Intl.DateTimeFormatOptions = {
-  weekday: "long",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-};
+import { PostContentImage } from '../components/PostContentImage';
+import { LinkView } from "../components/LinkView";
 
 interface Props {
   frontMatter: PostFrontMatter;
@@ -32,15 +27,17 @@ const PostLayout: FC<Props> = ({ frontMatter, next, prev, children }) => {
     <MainLayout>
       <br />
       <Container>
-        <BtnBack type="link" to="/blog" linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}>
+        <BtnBack type="link" to="/blog" linkView={(props) => <LinkView {...props} />}>
           Go Back To Blog
         </BtnBack>
         <article>
-          <ContentCard>
+          <ContentCard
+            topView={<PostContentImage imgView={<Image src={`/${image}`} width="1100px" height="500px" layout="responsive" objectFit="cover" />} />}
+          >
             <header>
               <h1>{title}</h1>
               <PostInfo date={date}/>
-              <PostTags tags={tags} linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>} />
+              <PostTags tags={tags} linkView={(props) => <LinkView {...props} />} />
               <hr />
             </header>
             <div>{children}</div>

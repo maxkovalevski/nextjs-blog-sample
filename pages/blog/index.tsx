@@ -13,6 +13,8 @@ import { getSidePanelData } from "../../lib/getSidePanelData";
 import { SidePanel } from "../../components/SidePanel";
 import { getPaginationData } from "../../lib/getPaginationData";
 import Link from "next/link";
+import { LinkView } from "../../components/LinkView";
+import { PostCardThumbnail } from "../../components/PostCardThumbnail";
 
 interface Props {
   initialDisplayPosts: PostItem[];
@@ -35,18 +37,23 @@ const Blog: NextPage<Props> = ({ initialDisplayPosts: posts, pagination: paginat
       <Container>
         <Breadcrumbs
           items={[{ to: "/", label: "Home" }, { label: "Blog" }]}
-          linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
+          linkView={(props) => <LinkView {...props} />}
         />
         <PageTitle>Blog</PageTitle>
         <PageGrid>
           <SidePanel tags={tags} blurbContent={blurbContent} />
           <PostsSection>
-            <PostsList posts={posts} gridView="row" linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>} />
+            <PostsList 
+              posts={posts} 
+              gridView="row" 
+              linkView={(props) => <LinkView {...props} />}
+              imgView={(props) => <PostCardThumbnail {...props} />}
+            />
             <Pagination
               routePath="/blog"
               currentPage={paginationData.currentPage}
               pagesCount={paginationData.totalPages}
-              linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
+              linkView={(props) => <LinkView {...props} />}
             />
           </PostsSection>
         </PageGrid>

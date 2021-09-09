@@ -3887,10 +3887,10 @@ next@11.1.0:
     vm-browserify "1.1.2"
     watchpack "2.1.1"
 
-nocturnal-ui-react@0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/nocturnal-ui-react/-/nocturnal-ui-react-0.0.8.tgz#9adbb9956a0fb7f84cf46296c5765b3450d6a119"
-  integrity sha512-0kFj7ES3mGl0j8nbfDwRzoxM3vIQz9rxr48d1ZNCsL4kr+47ykE8N7lyRUe+Lg8JKJ0nbVL5gDQY5ByhzOU5OA==
+nocturnal-ui-react@0.0.14:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/nocturnal-ui-react/-/nocturnal-ui-react-0.0.14.tgz#c3fd240ed1e87d9f2adbc9a13e24e010012de3ce"
+  integrity sha512-fc3rb6jVfonIXAPzVR7FOpuihWQX610qYmNh7WrZ/jOZuQMX4tm+gW7t4A5QDxnLivhudhr/BhByfUwazj4+zw==
   dependencies:
     prism-react-renderer "^1.2.1"
     react "^17.0.2"

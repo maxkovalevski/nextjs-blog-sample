@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { MDXLayoutRenderer } from './MDXLayoutRenderer';
 
 import avatarImg from '../static/img/avatar.jpeg';
+import { LinkView } from './LinkView';
 
 interface Props {
   blurbContent: string;
@@ -25,7 +26,7 @@ export const SidePanel: FC<Props> = ({ blurbContent, tags }) => {
         </InfoCard>
         <InfoCard>
           <h3 className="monospace">Tags</h3>
-          <PostTags direction="column" tags={tags} maxCount={8} linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>} />
+          <PostTags direction="column" tags={tags} maxCount={8} linkView={(props) => <LinkView {...props} />} />
           <Link href="/tags"><a className="underline theme-link">...more</a></Link>
         </InfoCard>
       </Panel>

@@ -1,0 +1,1 @@
+export {PostContentImage} from './PostContentImage'

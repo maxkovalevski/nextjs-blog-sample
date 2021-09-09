@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from 'next/router'
 
 import { ProgressBar } from "./ProgressBar";
+import { LinkView } from "./LinkView";
 
 export const MainLayout: FC = ({ children }) => {
   const router = useRouter()
@@ -25,7 +26,7 @@ export const MainLayout: FC = ({ children }) => {
       <Header
         currentPath={router.pathname}
         logoTitle="Next.js Blog Sample"
-        linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
+        linkView={(props) => <LinkView {...props} />}
         navItems={[
           {
             path: "/",
@@ -50,7 +51,7 @@ export const MainLayout: FC = ({ children }) => {
         <section className="copyright">@ Max Kowalevski 2021</section>
         <Navbar
           currentPath={router.pathname}
-          linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
+          linkView={(props) => <LinkView {...props} />}
           items={[
             {
               path: "/",

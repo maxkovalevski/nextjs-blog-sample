@@ -1,10 +1,11 @@
 import { GetStaticPropsContext, NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import { Breadcrumbs, Container, PageGrid, PageTitle, PostsList, PostsSection } from "nocturnal-ui-react";
 import React from "react";
+import { LinkView } from "../../components/LinkView";
 
 import { MainLayout } from "../../components/MainLayout";
+import { PostCardThumbnail } from "../../components/PostCardThumbnail";
 import { SidePanel } from "../../components/SidePanel";
 import { CONTENT_TYPE_BLOG, CONTENT_TYPE_NOTE } from "../../lib/constants";
 import { getAllFilesFrontMatter } from "../../lib/getAllFilesFrontMatter";
@@ -35,13 +36,18 @@ const TagPage: NextPage<Props> = ({ posts, tag, tags, blurbContent }) => {
       <Container>
         <Breadcrumbs
           items={[{ to: "/", label: "Home" }, { to: "/tags", label: "Tags" }, { label: tag }]}
-          linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>}
+          linkView={(props) => <LinkView {...props} />}
         />
         <PageTitle>#{tag}</PageTitle>
         <PageGrid>
           <SidePanel tags={tags} blurbContent={blurbContent} />
           <PostsSection>
-            <PostsList posts={posts} gridView="row" linkView={({ to, children, ...props }) => <Link href={to}><a {...props}>{children}</a></Link>} />
+            <PostsList
+              posts={posts} 
+              gridView="row" 
+              linkView={(props) => <LinkView {...props} />} 
+              imgView={(props) => <PostCardThumbnail {...props} />}
+            />
           </PostsSection>
         </PageGrid>
       </Container>
