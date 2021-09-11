@@ -75,6 +75,9 @@ export const Seo: FC<SeoProps> = ({
       <meta name="twitter:description" content={seo.description} />
       <meta name="twitter:image" content={seo.image} />
       {/* <Twitter /> */}
+      {siteMetadata.favicon && <link rel="icon" 
+        type="image/png" 
+        href={`${siteMetadata.siteUrl}${siteMetadata.favicon}`} />}
     </Head>
   );
 };
