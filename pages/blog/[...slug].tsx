@@ -4,7 +4,7 @@ import React from "react";
 
 import { MDXLayoutRenderer } from "../../components/MDXLayoutRenderer";
 
-import { DEFAULT_LAYOUT, POST_LAYOUT } from "../../lib/constants";
+import { CONTENT_TYPE_BLOG, DEFAULT_LAYOUT, POST_LAYOUT } from "../../lib/constants";
 import { formatSlug } from "../../lib/formatSlug";
 import { getAboutBlockContent } from "../../lib/getAboutBlockContent";
 import { getAllFilesFrontMatter } from "../../lib/getAllFilesFrontMatter";
@@ -76,7 +76,8 @@ export async function getStaticProps({
 }
 
 export function getStaticPaths() {
-  const posts = getFiles();
+  const posts = getFiles([CONTENT_TYPE_BLOG]);
+
 
   return {
     paths: posts.map((p) => ({

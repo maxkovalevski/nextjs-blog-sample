@@ -4,7 +4,7 @@ import React from "react";
 
 import { MDXLayoutRenderer } from "../../components/MDXLayoutRenderer";
 
-import { NOTE_LAYOUT } from "../../lib/constants";
+import { CONTENT_TYPE_NOTE, NOTE_LAYOUT } from "../../lib/constants";
 import { getAllFilesFrontMatter } from "../../lib/getAllFilesFrontMatter";
 import { getFileByName } from "../../lib/getFileByName";
 import { getFiles } from "../../lib/getFiles";
@@ -47,7 +47,7 @@ export async function getStaticProps({
 }
 
 export function getStaticPaths() {
-  const posts = getFiles();
+  const posts = getFiles([CONTENT_TYPE_NOTE]);
 
   return {
     paths: posts.map((p) => ({

@@ -4,11 +4,12 @@ import matter from "gray-matter";
 
 import { kebabCase } from "./kebabCase";
 import { getFiles } from "./getFiles";
+import { CONTENT_TYPE_BLOG, CONTENT_TYPE_NOTE } from "./constants";
 
 const root = process.cwd();
 
 export function getAllTags() {
-  const files = getFiles();
+  const files = getFiles([CONTENT_TYPE_BLOG, CONTENT_TYPE_NOTE]);
 
   let tagCount: {
     [key: string]: number;
