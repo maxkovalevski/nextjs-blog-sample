@@ -1,5 +1,4 @@
 import { GetStaticPropsContext, NextPage } from "next";
-import Head from "next/head";
 import React from "react";
 
 import { MDXLayoutRenderer } from "../../components/MDXLayoutRenderer";
@@ -28,16 +27,19 @@ const BlogPost: NextPage<Props> = ({ post, next, prev, aboutBlockContent }) => {
 
   return (
     <>
-      <Head>
-        <title>{frontMatter.title}</title>
-        <meta name="description" content={frontMatter.excerpt} />
-      </Head>
       <MDXLayoutRenderer
         layout={frontMatter.layout || POST_LAYOUT}
         mdxSource={mdxSource}
         frontMatter={frontMatter}
         prev={prev}
         next={next}
+        seoProps={{
+          isArticle: true,
+          title: frontMatter.title || "Blog Post",
+          description: frontMatter.excerpt,
+          keywords: frontMatter.keywords,
+          image: `/${frontMatter.image}`,
+        }}
       />
     </>
   );

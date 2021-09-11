@@ -11,20 +11,21 @@ import { transformTags } from "../lib/transformTags";
 import { MainLayout } from "../components/MainLayout";
 import { PostContentImage } from '../components/PostContentImage';
 import { LinkView } from "../components/LinkView";
+import { SeoProps } from "../components/Seo";
 
 interface Props {
   frontMatter: PostFrontMatter;
   next: any;
   prev: any;
+  seoProps?: SeoProps;
 }
 
-const PostLayout: FC<Props> = ({ frontMatter, next, prev, children }) => {
-  const { slug, date, title, tags: tagsData, image } = frontMatter;
+const PostLayout: FC<Props> = ({ frontMatter, children, seoProps = {} }) => {
+  const { date, title, tags: tagsData, image } = frontMatter;
   const tags = transformTags(tagsData || []);
 
-
   return (
-    <MainLayout>
+    <MainLayout {...seoProps}>
       <br />
       <Container>
         <BtnBack type="link" to="/blog" linkView={(props) => <LinkView {...props} />}>

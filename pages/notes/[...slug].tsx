@@ -1,5 +1,4 @@
 import { GetStaticPropsContext, NextPage } from "next";
-import Head from "next/head";
 import React from "react";
 
 import { MDXLayoutRenderer } from "../../components/MDXLayoutRenderer";
@@ -8,22 +7,27 @@ import { CONTENT_TYPE_NOTE, NOTE_LAYOUT } from "../../lib/constants";
 import { getAllFilesFrontMatter } from "../../lib/getAllFilesFrontMatter";
 import { getFileByName } from "../../lib/getFileByName";
 import { getFiles } from "../../lib/getFiles";
+import { PostFrontMatter } from "../../types";
 
 const NotePage: NextPage<{
-  note: any;
+  note: {
+    frontMatter: PostFrontMatter;
+    mdxSource: string;
+  };
 }> = ({ note }) => {
   const { mdxSource, frontMatter } = note;
 
   return (
     <>
-      <Head>
-        <title>{note.title}</title>
-        <meta name="description" content={note.excerpt} />
-      </Head>
       <MDXLayoutRenderer
         layout={frontMatter.layout || NOTE_LAYOUT}
         mdxSource={mdxSource}
         frontMatter={frontMatter}
+        seoProps={{
+          title: frontMatter.title || "Note",
+          description: frontMatter.excerpt,
+          keywords: frontMatter.keywords,
+        }}
       />
     </>
   );

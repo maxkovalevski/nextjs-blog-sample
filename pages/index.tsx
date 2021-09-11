@@ -26,7 +26,7 @@ interface Props {
 
 const Home: NextPage<Props> = ({ posts, blurbContent, paginationData, tags }) => {
   return (
-    <MainLayout>
+    <MainLayout isHomePage>
       <Head>
         <title>Next.js Blog Sample</title>
         <meta

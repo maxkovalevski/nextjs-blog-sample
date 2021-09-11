@@ -24,14 +24,7 @@ interface Props {
 
 const TagPage: NextPage<Props> = ({ posts, tag, tags, blurbContent }) => {
   return (
-    <MainLayout>
-      <Head>
-        <title>#{tag} | Next.js Blog Sample</title>
-        <meta
-          name="description"
-          content="Elit sint cupidatat minim laborum ea."
-        />
-      </Head>
+    <MainLayout title={`#${tag}`}>
       <br />
       <Container>
         <Breadcrumbs
@@ -80,7 +73,7 @@ export async function getStaticProps({
   const filteredPosts = allPosts.filter(
     (post) =>
       post.public === true &&
-      post.tags?.map((t) => kebabCase(t)).includes(params?.tag || "")
+      post.tags?.includes(params?.tag || "")
   );
   const { blurbContent, tags } = await getSidePanelData();
 

@@ -9,12 +9,16 @@ import { useRouter } from 'next/router'
 
 import { ProgressBar } from "./ProgressBar";
 import { LinkView } from "./LinkView";
+import { Seo, SeoProps } from "./Seo";
 
-export const MainLayout: FC = ({ children }) => {
+interface Props extends SeoProps {}
+
+export const MainLayout: FC<Props> = ({ children, ...props }) => {
   const router = useRouter()
 
   return (
     <>
+      <Seo {...props} />
       <div>
         <ProgressBar
           color="#29D"

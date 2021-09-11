@@ -1,5 +1,4 @@
 import { GetStaticPropsContext, NextPage } from "next";
-import Head from "next/head";
 import { Breadcrumbs, Container, PageGrid, PageTitle, Pagination, PostsList, PostsSection } from "nocturnal-ui-react";
 import React from "react";
 
@@ -11,7 +10,6 @@ import { PaginationData, PostItem, TagItem } from "../../../types";
 
 import { getSidePanelData } from "../../../lib/getSidePanelData";
 import { SidePanel } from "../../../components/SidePanel";
-import Link from "next/link";
 import { LinkView } from "../../../components/LinkView";
 import { PostCardThumbnail } from "../../../components/PostCardThumbnail";
 
@@ -24,14 +22,7 @@ interface Props {
 
 const PostPage: NextPage<Props> = ({ initialDisplayPosts: posts, pagination: paginationData, tags, blurbContent }) => {
   return (
-    <MainLayout>
-      <Head>
-        <title>Next.js Blog Sample</title>
-        <meta
-          name="description"
-          content="Elit sint cupidatat minim laborum ea."
-        />
-      </Head>
+    <MainLayout title="Blog">
       <br />
       <Container>
         <Breadcrumbs

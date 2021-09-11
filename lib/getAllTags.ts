@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-import { kebabCase } from "./kebabCase";
+//import { kebabCase } from "./kebabCase";
 import { getFiles } from "./getFiles";
 import { CONTENT_TYPE_BLOG, CONTENT_TYPE_NOTE } from "./constants";
 
@@ -22,7 +22,8 @@ export function getAllTags() {
 
     if (tags && data.public === true) {
       tags.forEach((tag) => {
-        const formattedTag = kebabCase(tag);
+        //const formattedTag = kebabCase(tag);
+        const formattedTag = tag;
         if (formattedTag in tagCount) {
           tagCount[formattedTag] += 1;
         } else {

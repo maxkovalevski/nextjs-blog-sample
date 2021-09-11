@@ -11,12 +11,13 @@ interface Props {
       to?: string;
       label: string;
   }[];
+  title?: string;
 }
 
-const PageLayout: FC<Props> = ({ children, breadcrumbsItems }) => {
+const PageLayout: FC<Props> = ({ children, breadcrumbsItems, title }) => {
 
   return (
-    <MainLayout>
+    <MainLayout title={title}>
       <br />
       <Container>
         {breadcrumbsItems && <Breadcrumbs

@@ -3,29 +3,23 @@ import { Container, ContentCard, PostInfo, BtnBack, PostTags } from "nocturnal-u
 
 import { PostFrontMatter } from "../types";
 
-import siteMetadata from "../siteMetadata";
-import { getTwitterDiscussUrl } from "../lib/getTwitterDiscussUrl";
+//import { getTwitterDiscussUrl } from "../lib/getTwitterDiscussUrl";
 import { MainLayout } from "../components/MainLayout";
 import { LinkView } from '../components/LinkView';
 import { transformTags } from "../lib/transformTags";
-
-const postDateTemplate: Intl.DateTimeFormatOptions = {
-  weekday: "long",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-};
+import { SeoProps } from "../components/Seo";
 
 interface Props {
   frontMatter: PostFrontMatter;
+  seoProps?: SeoProps;
 }
 
-const NoteLayout: FC<Props> = ({ frontMatter, children }) => {
-  const { slug, date, tags: tagsData } = frontMatter;
+const NoteLayout: FC<Props> = ({ frontMatter, children, seoProps = {} }) => {
+  const { date, tags: tagsData } = frontMatter;
   const tags = transformTags(tagsData || []);
 
   return (
-    <MainLayout>
+    <MainLayout {...seoProps}>
       <br />
       <Container>
         <BtnBack type="link" to="/notes" linkView={(props) => <LinkView {...props} />}>

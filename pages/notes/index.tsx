@@ -18,6 +18,7 @@ const NotesPage: NextPage<Props> = ({ content }) => {
       mdxSource={mdxSource}
       frontMatter={frontMatter}
       breadcrumbsItems={[{ to: "/", label: "Home" }, { label: "Notes" }]}
+      title="Notes"
     />
   );
 };

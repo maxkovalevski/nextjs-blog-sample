@@ -1,11 +1,9 @@
 import React from "react";
 import { NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import { Breadcrumbs, Container, PageGrid, PageTitle, PostsSection, TagsPile } from "nocturnal-ui-react";
 
 import { getAllTags } from "../lib/getAllTags";
-import { TagsData } from "../types";
 import { MainLayout } from "../components/MainLayout";
 import { SidePanel } from "../components/SidePanel";
 import { getSidePanelData } from "../lib/getSidePanelData";
@@ -27,7 +25,7 @@ interface Props {
 
 const TagsPage: NextPage<Props> = ({ tags, blurbContent, sidePanelTags }) => {
   return (
-    <MainLayout>
+    <MainLayout title="Tags">
       <Head>
         <title>Next.js Blog Sample</title>
         <meta
