@@ -8,3 +8,15 @@ body, body #__next, html {
     display: flex;
 }
 
+.monospace {
+    font-family: Roboto Mono,monospace;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.text-center {
+    text-align: center;
+}
+

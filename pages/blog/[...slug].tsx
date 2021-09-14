@@ -50,7 +50,6 @@ export async function getStaticProps({
   }: GetStaticPropsContext<{ slug: string[] }>): Promise<{
     props: Props
 }> {
-  console.log('slug', params?.slug);
   const allPosts = await getAllFilesFrontMatter(["blog"]);
   const postIndex = allPosts.findIndex(
     (post) => formatSlug(post.slug) === params?.slug.join("/")

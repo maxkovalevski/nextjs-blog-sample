@@ -12,6 +12,7 @@ import { MainLayout } from "../components/MainLayout";
 import { PostContentImage } from '../components/PostContentImage';
 import { LinkView } from "../components/LinkView";
 import { SeoProps } from "../components/Seo";
+import { Comments } from "../components/Comments";
 
 interface Props {
   frontMatter: PostFrontMatter;
@@ -19,6 +20,13 @@ interface Props {
   prev: any;
   seoProps?: SeoProps;
 }
+
+const UTTERANCES_CONFIG = {
+    repo: process.env.UTTERANCES_REPO,
+    issueTerm: process.env.UTTERANCES_ISSUETERM,
+    label: process.env.UTTERANCES_LABEL,
+    id: process.env.UTTERANCES_ID,
+};
 
 const PostLayout: FC<Props> = ({ frontMatter, children, seoProps = {} }) => {
   const { date, title, tags: tagsData, image } = frontMatter;
@@ -44,6 +52,7 @@ const PostLayout: FC<Props> = ({ frontMatter, children, seoProps = {} }) => {
             <div>{children}</div>
           </ContentCard>
         </article>
+        <Comments utterancesConfig={UTTERANCES_CONFIG as any} />
       </Container>
       {/*<article>
         <div>

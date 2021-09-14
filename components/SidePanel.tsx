@@ -6,6 +6,8 @@ import { MDXLayoutRenderer } from './MDXLayoutRenderer';
 
 import avatarImg from '../static/img/avatar.jpeg';
 import { LinkView } from './LinkView';
+import { Icon } from './Icon';
+import { icons } from '../icons';
 
 interface Props {
   blurbContent: string;
@@ -25,7 +27,19 @@ export const SidePanel: FC<Props> = ({ blurbContent, tags }) => {
           />
         </InfoCard>
         <InfoCard>
-          <h3 className="monospace">Tags</h3>
+          <h3 className="monospace"
+            style={{
+              fontWeight: "bold",
+              height: "22px",
+              lineHeight: "1",
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "25px",
+            }}
+          >
+            <span style={{ marginRight: "15px" }}>Tags</span>{" "}
+            <Icon src={icons.emojiLabel.src} widthSize="25px" />
+          </h3>
           <PostTags direction="column" tags={tags} maxCount={8} linkView={(props) => <LinkView {...props} />} />
           <Link href="/tags"><a style={{
             textDecoration: 'underline',
