@@ -2,12 +2,11 @@ import React, { FC } from 'react';
 import { Avatar, InfoCard, PostTags, SidePanel as Panel } from 'nocturnal-ui-react';
 import Link from 'next/link';
 
-import { MDXLayoutRenderer } from './MDXLayoutRenderer';
-
 import avatarImg from '../static/img/avatar.jpeg';
 import { LinkView } from './LinkView';
 import { Icon } from './Icon';
 import { icons } from '../icons';
+import { Blurb } from './Blurb';
 
 interface Props {
   blurbContent: string;
@@ -22,9 +21,9 @@ export const SidePanel: FC<Props> = ({ blurbContent, tags }) => {
       <Panel position="left">
         <InfoCard>
           <Avatar src={avatarImg.src} />
-          <MDXLayoutRenderer
-            mdxSource={blurbContent}
-          />
+          <Blurb>
+            {blurbContent}
+          </Blurb>
         </InfoCard>
         <InfoCard>
           <h3 className="monospace"
