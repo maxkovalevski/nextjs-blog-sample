@@ -3,12 +3,12 @@ import React from "react";
 
 import { MDXLayoutRenderer } from "../../components/MDXLayoutRenderer";
 
-import { CONTENT_TYPE_BLOG, DEFAULT_LAYOUT, POST_LAYOUT } from "../../lib/constants";
+import { CONTENT_TYPE_BLOG, POST_LAYOUT } from "../../lib/constants";
 import { formatSlug } from "../../lib/formatSlug";
 import { getAboutBlockContent } from "../../lib/getAboutBlockContent";
 import { getAllFilesFrontMatter } from "../../lib/getAllFilesFrontMatter";
 import { getFileByName } from "../../lib/getFileByName";
-import { getFiles } from "../../lib/getFiles";
+import { getFilesPaths } from "../../lib/getFilesPaths";
 import { PostFrontMatter, TableOfContentsData } from "../../types";
 
 interface Props {
@@ -50,6 +50,7 @@ export async function getStaticProps({
   }: GetStaticPropsContext<{ slug: string[] }>): Promise<{
     props: Props
 }> {
+  console.log('slug', params?.slug);
   const allPosts = await getAllFilesFrontMatter(["blog"]);
   const postIndex = allPosts.findIndex(
     (post) => formatSlug(post.slug) === params?.slug.join("/")
@@ -78,8 +79,7 @@ export async function getStaticProps({
 }
 
 export function getStaticPaths() {
-  const posts = getFiles([CONTENT_TYPE_BLOG]);
-
+  const posts = getFilesPaths([CONTENT_TYPE_BLOG]);
 
   return {
     paths: posts.map((p) => ({

@@ -11,6 +11,7 @@ export interface PostFrontMatter {
   fileName?: string;
   layout?: string;
   public?: boolean;
+  urlPrefix?: string;
 }
 
 export interface Post extends PostFrontMatter {

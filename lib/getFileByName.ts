@@ -114,6 +114,7 @@ export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permali
       ...frontmatter as PostFrontMatter,
       slug: slug || '',
       date: formattedDate,
+      tags: (frontmatter?.tags || []).map((tag: string) => tag.toLowerCase()),
     },
   };
 };

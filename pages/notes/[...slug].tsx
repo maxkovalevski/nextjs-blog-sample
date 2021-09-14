@@ -6,7 +6,7 @@ import { MDXLayoutRenderer } from "../../components/MDXLayoutRenderer";
 import { CONTENT_TYPE_NOTE, NOTE_LAYOUT } from "../../lib/constants";
 import { getAllFilesFrontMatter } from "../../lib/getAllFilesFrontMatter";
 import { getFileByName } from "../../lib/getFileByName";
-import { getFiles } from "../../lib/getFiles";
+import { getFilesPaths } from "../../lib/getFilesPaths";
 import { PostFrontMatter } from "../../types";
 
 const NotePage: NextPage<{
@@ -43,6 +43,7 @@ export async function getStaticProps({
 
   const note = await getFileByName(postData.fileName || '');
 
+
   return {
     props: {
       note,
@@ -51,7 +52,9 @@ export async function getStaticProps({
 }
 
 export function getStaticPaths() {
-  const posts = getFiles([CONTENT_TYPE_NOTE]);
+  const posts = getFilesPaths([CONTENT_TYPE_NOTE]);
+
+  //console.log('posts', posts.map((p) => p.replace(".mdx", "").replace(".md", "").split("/")));
 
   return {
     paths: posts.map((p) => ({

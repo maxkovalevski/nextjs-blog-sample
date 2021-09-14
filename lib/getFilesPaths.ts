@@ -11,7 +11,7 @@ const root = process.cwd();
 
 type BoolFilter = <T>(x: T | undefined) => x is T;
 
-export const getFiles = (contentTypes: ContentType[]): string[] => {
+export const getFilesPaths = (contentTypes: ContentType[]): string[] => {
   const prefixPaths = path.join(root, CONTENT_DIR);
   const filesPaths = getAllFilesRecursively(prefixPaths, ['md', 'mdx']);
 

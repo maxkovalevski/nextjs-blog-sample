@@ -48,6 +48,7 @@ export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
       excerpt: excerpt ? excerpt : getPostExcerpt(content),
       fileName,
       content,
+      tags: (frontmatter?.tags || []).map((tag) => tag.toLowerCase()),
     });
   });
 

@@ -14,6 +14,15 @@ module.exports = {
     UTTERANCES_LABEL: process.env.UTTERANCES_LABEL,
     UTTERANCES_ID: process.env.UTTERANCES_ID,
     CONVERTKIT_ENDPOINT: process.env.CONVERTKIT_ENDPOINT,
-  }
+  },
+  async redirects() {
+    return [
+      {
+        source: '/blog/article/:slug',
+        destination: '/blog/:slug',
+        permanent: true,
+      },
+    ]
+  },
 }
 
