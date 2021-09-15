@@ -11,6 +11,8 @@ import { ProgressBar } from "./ProgressBar";
 import { LinkView } from "./LinkView";
 import { Seo, SeoProps } from "./Seo";
 
+import siteMetadata from '../siteMetadata';
+
 interface Props extends SeoProps {}
 
 export const MainLayout: FC<Props> = ({ children, ...props }) => {
@@ -31,50 +33,16 @@ export const MainLayout: FC<Props> = ({ children, ...props }) => {
           currentPath={router.pathname}
           logoTitle="Next.js Blog Sample"
           linkView={(props) => <LinkView {...props} />}
-          navItems={[
-            {
-              path: "/",
-              name: "Home",
-            },
-            {
-              path: "/blog",
-              name: "Blog",
-            },
-            {
-              path: "/notes",
-              name: "Notes",
-            },
-            {
-              path: "/about",
-              name: "About",
-            },
-          ]}
+          navItems={siteMetadata.headerMenu}
         />
         <>{children}</>
       </div>
       <Footer>
-        <section className="copyright">@ Max Kowalevski 2021</section>
+        <section className="copyright">{siteMetadata.copyrightText}</section>
         <Navbar
           currentPath={router.pathname}
           linkView={(props) => <LinkView {...props} />}
-          items={[
-            {
-              path: "/",
-              name: "Home",
-            },
-            {
-              path: "/blog",
-              name: "Blog",
-            },
-            {
-              path: "/notes",
-              name: "Notes",
-            },
-            {
-              path: "/about",
-              name: "About",
-            },
-          ]}
+          items={siteMetadata.footerMenu}
         />
       </Footer>
     </>

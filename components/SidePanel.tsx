@@ -7,6 +7,7 @@ import { LinkView } from './LinkView';
 import { Icon } from './Icon';
 import { icons } from '../icons';
 import { Blurb } from './Blurb';
+import { SubscribingCard } from './SubscribingCard';
 
 interface Props {
   blurbContent: string;
@@ -19,6 +20,7 @@ interface Props {
 export const SidePanel: FC<Props> = ({ blurbContent, tags }) => {
   return (
       <Panel position="left">
+        <SubscribingCard />
         <InfoCard>
           <Avatar src={avatarImg.src} />
           <Blurb>

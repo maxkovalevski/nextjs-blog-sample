@@ -2,26 +2,59 @@ const siteMetadata = {
   title: "Next.js Blog Sample",
   titleTemplate: "%s | Next.js Blog Sample",
   author: "Max Kowalevski",
-  description: "A blog created with Next.js and Tailwind.css",
+  description: "My blog",
   keywords: [],
   language: "en-us",
-  siteUrl: process.env.SITE_URL || 'http://localhost',
-  siteRepo: "https://github.com/timlrx/tailwind-nextjs-starter-blog",
+  siteUrl: 'http://localhost',
+  siteRepo: "https://github.com/kowalevski/nextjs-blog-sample",
   siteLogo: "/static/images/logo.png",
   defaultImage: "/static/images/avatar.png",
   avatar: "/static/img/avatar.jpeg",
   favicon: "/img/avatar.jpeg",
-  socialBanner: "/static/images/twitter-card.png",
-  email: "address@yoursite.com",
+  email: "me@kowalevski.com",
   githubUsername: "kowalevski",
   twitterUsername: "mkowalevski",
   locale: "en-US",
   analytics: {
-    // supports plausible, simpleAnalytics or googleAnalytics
-    plausibleDataDomain: "", // e.g. tailwind-nextjs-starter-blog.vercel.app
-    simpleAnalytics: false, // true or false
-    googleAnalyticsId: "", // e.g. UA-000000-2 or G-XXXXXXX
+    plausibleDataDomain: "",
   },
+  copyrightText: "@ Max Kowalevski 2021",
+  headerMenu: [
+    {
+      path: "/",
+      name: "Home",
+    },
+    {
+      path: "/blog",
+      name: "Blog",
+    },
+    {
+      path: "/notes",
+      name: "Notes",
+    },
+    {
+      path: "/about",
+      name: "About",
+    },
+  ],
+  footerMenu: [
+    {
+      path: "/blog",
+      name: "Blog",
+    },
+    {
+      path: "/notes",
+      name: "Notes",
+    },
+    {
+      path: "https://twitter.com/mkowalevski",
+      name: "Twitter",
+    },
+    {
+      path: "https://github.com/kowalevski",
+      name: "GitHub",
+    },
+  ],
   comment: {
     // Select a provider and use the environment variables associated to it
     // https://vercel.com/docs/environment-variables
@@ -48,20 +81,12 @@ const siteMetadata = {
       themeURL: "",
     },
     utterancesConfig: {
-      // Visit the link below, and follow the steps in the 'configuration' section
-      // https://utteranc.es/
-      repo: process.env.NEXT_PUBLIC_UTTERANCES_REPO,
-      issueTerm: "", // supported options: pathname, url, title
-      label: "", // label (optional): Comment 💬
-      // theme example: github-light, github-dark, preferred-color-scheme
+      repo: process.env.UTTERANCES_REPO || '',
+      issueTerm: 'pathname',
+      label: 'comment',
       // github-dark-orange, icy-dark, dark-blue, photon-dark, boxy-light
-      theme: "",
-      // theme when dark mode
-      darkTheme: "",
-    },
-    disqus: {
-      // https://help.disqus.com/en/articles/1717111-what-s-a-shortname
-      shortname: process.env.NEXT_PUBLIC_DISQUS_SHORTNAME,
+      theme: 'dark-blue',
+      darkTheme: '',
     },
   },
 };

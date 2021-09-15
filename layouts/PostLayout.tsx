@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import Link from "next/link";
 import Image from 'next/image';
 
 import { BtnBack, Container, ContentCard, PostInfo, PostTags } from 'nocturnal-ui-react';
@@ -14,6 +13,9 @@ import { LinkView } from "../components/LinkView";
 import { SeoProps } from "../components/Seo";
 import { Comments } from "../components/Comments";
 
+import siteMetadata from '../siteMetadata';
+import { UtterancesConfig } from "../hooks";
+
 interface Props {
   frontMatter: PostFrontMatter;
   next: any;
@@ -21,11 +23,9 @@ interface Props {
   seoProps?: SeoProps;
 }
 
-const UTTERANCES_CONFIG = {
-    repo: process.env.UTTERANCES_REPO || '',
-    issueTerm: process.env.UTTERANCES_ISSUETERM || '',
-    label: process.env.UTTERANCES_LABEL || '',
-    id: process.env.UTTERANCES_ID || '',
+const UTTERANCES_CONFIG: UtterancesConfig = {
+    ...siteMetadata.comment.utterancesConfig,
+    id: 'utterances',
 };
 
 const PostLayout: FC<Props> = ({ frontMatter, children, seoProps = {} }) => {
