@@ -11,6 +11,7 @@ import { getPostExcerpt } from "./getPostExcerpt";
 import { ContentType, PostFrontMatter } from "../types";
 import { isTypeNote } from "./isTypeNote";
 import { getFormattedDate } from "./getFormattedDate";
+import { createSocialCard } from "./createSocialCard";
 
 export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
   const ROOT_DIR = process.cwd();
@@ -29,8 +30,8 @@ export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
     }
     const source = fs.readFileSync(file, "utf8");
     const { data, content } = matter(source);
-    const frontmatter = data as PostFrontMatter;
-    const { public: isPublic = false, type, excerpt } = frontmatter;
+    const frontmatterData = data as PostFrontMatter;
+    const { public: isPublic = false, type, excerpt } = frontmatterData;
 
     if (!isPublic || !contentTypeCondition(contentTypes, type)) {
       return;
@@ -39,17 +40,19 @@ export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
     const slugFileName = fileName.replace(".mdx", "").replace(".md", "");
     const slug = isTypeNote(type) ? slugFileName : formatSlug(slugFileName);
 
-    const formattedDate = getFormattedDate(frontmatter.date || '');
+    const formattedDate = getFormattedDate(frontmatterData.date || '');
 
-    allFrontMatter.push({
-      ...frontmatter,
+    const frontmatter = {
+      ...frontmatterData,
       slug,
       date: formattedDate,
       excerpt: excerpt ? excerpt : getPostExcerpt(content),
       fileName,
       content,
-      tags: (frontmatter?.tags || []).map((tag) => tag.toLowerCase()),
-    });
+      tags: (frontmatterData?.tags || []).map((tag) => tag.toLowerCase()),
+    };
+
+    allFrontMatter.push(frontmatter);
   });
 
   return allFrontMatter.sort((a, b) =>

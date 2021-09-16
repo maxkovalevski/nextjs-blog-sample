@@ -1,8 +1,7 @@
 import { bundleMDX } from "mdx-bundler";
 import path from "path";
 import fs from "fs";
-// import cssModulesPlugin from 'esbuild-css-modules-plugin';
-
+import { loadImage } from "canvas";
 
 import remarkSlug from "remark-slug";
 import remarkAutolinkHeadings from "remark-autolink-headings";
@@ -21,8 +20,10 @@ import { formatSlug } from "./formatSlug";
 import { PostFrontMatter } from "../types";
 import { getFormattedDate } from "./getFormattedDate";
 
-const root = process.cwd();
+import siteMetadata from "../siteMetadata";
+import { createSocialCard } from "./createSocialCard";
 
+const root = process.cwd();
 
 export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permalinkPrefix = NOTES_URL) => {
   const slug = formatSlug(fileName);
@@ -33,6 +34,8 @@ export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permali
   // const source = fs.existsSync(mdxPath)
   //   ? fs.readFileSync(mdxPath, "utf8")
   //   : fs.readFileSync(mdPath, "utf8");
+  const logoPath = path.join(root, siteMetadata.siteLogo);
+  const logo = await loadImage(logoPath);
   const source = fs.readFileSync(filePath, "utf8");
 
   // https://github.com/kentcdodds/mdx-bundler#nextjs-esbuild-enoent
@@ -55,7 +58,7 @@ export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permali
 
   let toc: any[] = [];
 
-  const { frontmatter, code } = await bundleMDX(source, {
+  const { frontmatter: frontMatterData, code } = await bundleMDX(source, {
     // mdx imports can be automatically source from the components directory
     cwd: path.join(process.cwd(), "components"),
     xdmOptions(options) {
@@ -125,18 +128,28 @@ export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permali
   });
 
   // 2021-07-29 17:00
-  const formattedDate = getFormattedDate(frontmatter.date);
+  const formattedDate = getFormattedDate(frontMatterData.date);
+
+  let frontMatter = {
+    //   readingTime: readingTime(code),
+    fileName,
+    ...frontMatterData as PostFrontMatter,
+    slug: slug || '',
+    date: formattedDate,
+    tags: (frontMatterData?.tags || []).map((tag: string) => tag.toLowerCase()),
+  };
+
+  // generating social card
+  const socialCard = createSocialCard(frontMatter, logo);
+
+  frontMatter = {
+    ...frontMatter,
+    socialCard,
+  }
 
   return {
     mdxSource: code,
     toc,
-    frontMatter: {
-      //   readingTime: readingTime(code),
-      fileName,
-      ...frontmatter as PostFrontMatter,
-      slug: slug || '',
-      date: formattedDate,
-      tags: (frontmatter?.tags || []).map((tag: string) => tag.toLowerCase()),
-    },
+    frontMatter,
   };
 };

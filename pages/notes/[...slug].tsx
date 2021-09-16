@@ -27,6 +27,7 @@ const NotePage: NextPage<{
           title: frontMatter.title || "Note",
           description: frontMatter.excerpt,
           keywords: frontMatter.keywords,
+          image: frontMatter?.socialCard ? frontMatter?.socialCard : undefined,
         }}
       />
     </>

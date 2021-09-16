@@ -37,3 +37,4 @@ content
 # we don't need this in repository
 public/Images
 
+public/img/thumbnails

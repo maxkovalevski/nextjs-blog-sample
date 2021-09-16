@@ -22,7 +22,7 @@ interface Props {
   aboutBlockContent: string,
 }
 
-const BlogPost: NextPage<Props> = ({ post, next, prev, aboutBlockContent }) => {
+const BlogPost: NextPage<Props> = ({ post, next, prev }) => {
   const { mdxSource, frontMatter } = post;
 
   return (
@@ -38,7 +38,7 @@ const BlogPost: NextPage<Props> = ({ post, next, prev, aboutBlockContent }) => {
           title: frontMatter.title || "Blog Post",
           description: frontMatter.excerpt,
           keywords: frontMatter.keywords,
-          image: `/${frontMatter.image}`,
+          image: frontMatter?.socialCard ? frontMatter?.socialCard : `/${frontMatter.image}`,
         }}
       />
     </>
