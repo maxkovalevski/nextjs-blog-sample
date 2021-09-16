@@ -13,9 +13,7 @@ export const SubscribingCard: FC = () => {
     handleSubmit,
     handleChangeEmail,
     email,
-    isInitialStatus,
-    isSuccessStatus,
-    isErrorStatus,
+    status,
   } = useConvertkitEmailSubscription({ endpoint: process.env.CONVERTKIT_ENDPOINT || '' });
 
   return (
@@ -38,15 +36,15 @@ export const SubscribingCard: FC = () => {
             />
             <button type="submit">Subscribe</button>
           </form>
-          {!isInitialStatus && (
+          {status !== 'initial' && (
             <div>
-              {isSuccessStatus && (
+              {status === 'success' && (
                 <div className={styles.resultSuccess}>
                   <Icon src={icons.emojiSparkles.src} widthSize="20px" />
                   <i>Please go confirm your subscription!</i>
                 </div>
               )}
-              {isErrorStatus && (
+              {status === 'error' && (
                 <div className={styles.resultError}>
                   <Icon src={icons.emojiPoliceCarLight.src} widthSize="20px" />
                   <i>Oops, Something went wrong! Try again.</i>

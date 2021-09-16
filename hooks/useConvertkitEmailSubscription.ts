@@ -1,8 +1,8 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
-export const STATUS_INITIAL = "STATUS_INITIAL";
-export const STATUS_SUCCESS = "STATUS_SUCCESS";
-export const STATUS_ERROR = "STATUS_ERROR";
+export const STATUS_INITIAL = "initial";
+export const STATUS_SUCCESS = "success";
+export const STATUS_ERROR = "error";
 
 type Status =
   | typeof STATUS_INITIAL
@@ -39,7 +39,8 @@ export const useConvertkitEmailSubscription = ({
 
       if (json.status === "success") {
         setStatus(STATUS_SUCCESS);
-        return;
+      } else if (json.status === 'failed') {
+        setStatus(STATUS_ERROR);
       }
     } catch (err) {
       setStatus(STATUS_ERROR);
@@ -55,19 +56,13 @@ export const useConvertkitEmailSubscription = ({
     setStatus(STATUS_INITIAL);
   };
 
-  const isInitialStatus = useMemo(() => status === STATUS_INITIAL, [status]);
-  const isSuccessStatus = useMemo(() => status === STATUS_SUCCESS, [status]);
-  const isErrorStatus = useMemo(() => status === STATUS_ERROR, [status]);
-
   return {
     email,
     handleSubmit,
     handleChangeEmail,
     handleTryAgain,
     FORM_URL,
-    isInitialStatus,
-    isSuccessStatus,
-    isErrorStatus,
+    status
   };
 };
 

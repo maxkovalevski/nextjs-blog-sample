@@ -2,10 +2,13 @@
 import { FC, useMemo } from "react";
 import { getMDXComponent } from "mdx-bundler/client";
 import NextImage from "next/image";
+import NextLink from 'next/link';
+import { PostBanner } from 'nocturnal-ui-react';
 
 import CustomLink from "./CustomLink";
 import { Pre } from "./Pre";
 import  { DEFAULT_LAYOUT } from '../lib/constants'
+import { useConvertkitEmailSubscription } from '../hooks';
 
 export const MDXComponents = {
   Image: (props: any) => <div style={{ maxWidth: '700px', margin: '0 auto 1.5em auto' }}>
@@ -20,7 +23,12 @@ export const MDXComponents = {
 };
 
 export const MDXLayoutRenderer: FC<any> = ({ layout = DEFAULT_LAYOUT, mdxSource, ...rest }) => {
-  const MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource]);
+  const MDXLayout = useMemo(() => getMDXComponent(mdxSource, {
+    '_nextLink': NextLink,
+    '_convertkitEndpoint': process.env.CONVERTKIT_ENDPOINT || '',
+    '_postBanner': PostBanner,
+    '_useConvertkitEmailSubscription': useConvertkitEmailSubscription,
+  }), [mdxSource, NextLink]);
 
   return <MDXLayout layout={layout} components={MDXComponents} {...rest} />;
 };

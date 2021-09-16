@@ -54,8 +54,6 @@ export async function getStaticProps({
 export function getStaticPaths() {
   const posts = getFilesPaths([CONTENT_TYPE_NOTE]);
 
-  //console.log('posts', posts.map((p) => p.replace(".mdx", "").replace(".md", "").split("/")));
-
   return {
     paths: posts.map((p) => ({
       params: {

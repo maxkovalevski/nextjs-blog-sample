@@ -1,6 +1,8 @@
 import { bundleMDX } from "mdx-bundler";
 import path from "path";
 import fs from "fs";
+// import cssModulesPlugin from 'esbuild-css-modules-plugin';
+
 
 import remarkSlug from "remark-slug";
 import remarkAutolinkHeadings from "remark-autolink-headings";
@@ -96,8 +98,28 @@ export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permali
       options.loader = {
         ...options.loader,
         ".js": "jsx",
-        ".ts": "tsx",
+        ".ts": "tsx"
       };
+      options.plugins = [
+        ...options.plugins || [],
+        /*
+        cssModulesPlugin({
+          // optional. set to false to not inject generated CSS into <head>, default is true. 
+          // could be a function with params content & digest (return a string of js code to inject to page), 
+          // e.g.
+          // ```
+          // inject: (cssContent, digest) => `console.log("${cssContent}", "${digest}")`
+          // ```
+          build: false,
+          //inject: false,
+
+          localsConvention: 'camelCaseOnly', // optional. value could be one of 'camelCaseOnly', 'camelCase', 'dashes', 'dashesOnly', default is 'camelCaseOnly'
+          
+          //generateScopedName: (name, filename, css) => string, // optional. 
+
+          //v2: true // experimental. v2 can bundle images in css, note if set `v2` to true, the `inject` option will be ignored. and v2 only works with `bundle: true`.
+        })*/
+      ];
       return options;
     },
   });
