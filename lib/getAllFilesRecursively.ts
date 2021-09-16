@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { getExcludedFiles } from "./getExcludedFiles";
 
 const flattenArray = (input: (string | string[])[]) =>
   input.reduce(
@@ -19,6 +20,8 @@ const pathJoinPrefix = (prefix: string) => (extraPath: string) =>
 export const getAllFilesRecursively = (folder: string, extensions: string[]): string[] => {
   const dir = fs.readdirSync(folder);
 
+  const excludedFiles = getExcludedFiles();
+
   const paths = dir
     .map((val) => {
       const fullPath = pathJoinPrefix(folder)(val);
@@ -28,7 +31,7 @@ export const getAllFilesRecursively = (folder: string, extensions: string[]): st
     .filter(Boolean);
 
   const result = flattenArray(paths).filter((filePath) => {
-    return extensions.some((ext) => filePath.includes(`.${ext}`));
+    return extensions.some((ext) => filePath.includes(`.${ext}`)) && !excludedFiles.includes(filePath);
   });
 
   return result;

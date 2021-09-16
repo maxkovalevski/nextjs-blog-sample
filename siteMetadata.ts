@@ -56,6 +56,10 @@ const siteMetadata = {
       name: "GitHub",
     },
   ],
+  notesHomePageContentFile: "site-notes-index.md",
+  aboutPageContentFile: "site-about.md",
+  aboutBlockContentFile: "site-about-block.md",
+  blurbContentFile: "site-blurb.md",
   comment: {
     // Select a provider and use the environment variables associated to it
     // https://vercel.com/docs/environment-variables

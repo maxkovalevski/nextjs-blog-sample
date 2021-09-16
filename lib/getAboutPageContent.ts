@@ -1,9 +1,9 @@
-import { ABOUT_PAGE_CONTENT } from './constants';
 import { getFileByName } from './getFileByName';
 
+import siteMetadata from '../siteMetadata';
 
 export const getAboutPageContent = async () => {
-  const post = await getFileByName(`${ABOUT_PAGE_CONTENT}.md`);
+  const post = await getFileByName(siteMetadata.aboutPageContentFile);
 
   return post;
 }

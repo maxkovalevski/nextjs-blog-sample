@@ -1,9 +1,9 @@
-import { BLURB_CONTENT } from './constants';
 import { getFileByName } from './getFileByName';
 
+import siteMetadata from '../siteMetadata';
 
 export const getBlurbContent = async () => {
-  const data = await getFileByName(`${BLURB_CONTENT}.md`);
+  const data = await getFileByName(siteMetadata.blurbContentFile);
 
   return data;
 }

@@ -1,9 +1,9 @@
-import { NOTES_HOME_PAGE_CONTENT } from './constants';
 import { getFileByName } from './getFileByName';
 
+import siteMetadata from '../siteMetadata';
 
 export const getNotesHomePageContent = async () => {
-  const post = await getFileByName(`${NOTES_HOME_PAGE_CONTENT}.md`);
+  const post = await getFileByName(siteMetadata.notesHomePageContentFile);
 
   return post;
 }

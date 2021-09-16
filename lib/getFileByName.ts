@@ -22,10 +22,12 @@ import { getFormattedDate } from "./getFormattedDate";
 
 import siteMetadata from "../siteMetadata";
 import { createSocialCard } from "./createSocialCard";
+import { getExcludedFiles } from "./getExcludedFiles";
 
 const root = process.cwd();
 
 export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permalinkPrefix = NOTES_URL) => {
+  const excludedFiles = getExcludedFiles();
   const slug = formatSlug(fileName);
   const filePath = path.join(root, dir, fileName);
   // const mdxPath = path.join(root, CONTENT_DIR, `${fileName}.mdx`);
@@ -140,7 +142,11 @@ export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permali
   };
 
   // generating social card
-  const socialCard = createSocialCard(frontMatter, logo);
+  let socialCard;
+
+  if (!excludedFiles.includes(filePath)) {
+    socialCard = createSocialCard(frontMatter, logo)
+  }
 
   frontMatter = {
     ...frontMatter,
