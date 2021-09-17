@@ -22,7 +22,7 @@ module.exports = {
       },
     ]
   },
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+  webpack: (config) => {
     config.externals = {
       ...config.externals,
       canvas: "commonjs canvas"
