@@ -1,7 +1,8 @@
 // import { createFileNodeFromBuffer } from `gatsby-source-filesystem`;
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import path from 'path';
-import { createCanvas, Image, registerFont } from 'canvas';
+// @ts-ignore
+import { createCanvas, Image, registerFont } from 'canvas/browser';
 import format from 'date-fns/format';
 
 import siteMetadata from '../siteMetadata';
