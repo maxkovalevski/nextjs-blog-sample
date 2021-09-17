@@ -1,21 +1,19 @@
-// import { createFileNodeFromBuffer } from `gatsby-source-filesystem`;
-const { writeFileSync, existsSync, mkdirSync } = require('fs');
-const path = require('path');
-// @ts-ignore
-const { createCanvas, Image, registerFont } = require('canvas');
-const format = require('date-fns/format');
+import { writeFileSync, existsSync, mkdirSync } from 'fs';
+import path from 'path';
+import { createCanvas, registerFont, Image } from 'canvas';
+import { format } from 'date-fns';
 
-const siteMetadata = require('../siteMetadata');
+import siteMetadata from '../siteMetadata';
 
 const { siteDomain } = siteMetadata;
 
-//import { PostFrontMatter } from '../types';
-const { fillTextOnCanvas } = require('./fillTextOnCanvas');
-const { formatSlug } = require('./formatSlug');
+import { PostFrontMatter } from '../types';
+import { fillTextOnCanvas } from './fillTextOnCanvas';
+import { formatSlug } from './formatSlug';
 
 const root = process.cwd();
 
-export const createSocialCard = ({ title = '', slug, tags, date }: any, logo: any) => {
+export const createSocialCard = ({ title = '', slug, tags, date }: PostFrontMatter, logo: Image) => {
     const fileName = `${formatSlug(slug)}.png`;
     const thumbnailsDir = '/img/thumbnails';
     const thumbnailFilePath = `${root}/public${thumbnailsDir}/${fileName}`;
