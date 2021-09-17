@@ -6,6 +6,7 @@ require('dotenv').config({
 
 
 module.exports = {
+  target: 'serverless',
   reactStrictMode: true,
   env: {
     UTTERANCES_REPO: process.env.UTTERANCES_REPO,
@@ -20,6 +21,14 @@ module.exports = {
         permanent: true,
       },
     ]
+  },
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    config.externals = {
+      ...config.externals,
+      canvas: "commonjs canvas"
+    };
+    // Important: return the modified config
+    return config
   },
 }
 
