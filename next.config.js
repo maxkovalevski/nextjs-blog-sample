@@ -10,6 +10,7 @@ module.exports = {
   env: {
     UTTERANCES_REPO: process.env.UTTERANCES_REPO,
     CONVERTKIT_ENDPOINT: process.env.CONVERTKIT_ENDPOINT,
+    SITE_URL: process.env.SITE_URL,
   },
   async redirects() {
     return [
