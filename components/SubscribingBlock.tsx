@@ -20,43 +20,17 @@ export const SubscribingBlock = () => {
   } = useConvertkitEmailSubscription({ endpoint: endpoint });
 
   const params = {
-    title: "Weekly Dose Of Software Engineering Stuff",
+    title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
     content: (
       <>
         <p>
-          Be the first to know when I write new post. I also share useful
-          resources from my blog and the Internet with memebers of newsletter{" "}
-          <Link href="/newsletter">
-            <strong>Weekly Dose Of Software Engineering Stuff</strong>
-          </Link>
-          .
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer libero quam, vestibulum in augue ac, tincidunt volutpat lacus. Pellentesque nibh erat, luctus et iaculis vitae, dignissim aliquet nulla. Pellentesque mattis justo at vehicula aliquam. Nam scelerisque in tortor vel fringilla. 
         </p>
         <p>
-          The content related to{" "}
-          <strong>
-            <i>TypeScript</i>
-          </strong>
-          ,{" "}
-          <strong>
-            <i>Node</i>
-          </strong>
-          , programming languages in general, testing for devs, writing and
-          note-taking, useful resources about computer science,{" "}
-          <strong>
-            <i>algorithms and data structures</i>
-          </strong>
-          , interview preparation, software architecture, books,{" "}
-          <strong>
-            <i>DevOps</i>
-          </strong>
-          , and many many other interesting things.
+          Morbi sed dolor sed nisi pulvinar eleifend. Morbi non urna nec lacus tempor commodo. Cras rutrum magna erat, ac luctus nisl convallis et. Aenean et leo non nunc commodo sollicitudin in vitae elit. Nam sollicitudin dapibus velit sit amet blandit. Donec auctor felis ac dolor faucibus, eu auctor orci consectetur. 
         </p>
         <p>
-          Only interesting articles and useful materials.{" "}
-          <strong>
-            <i>No spam</i>
-          </strong>
-          .
+          Quisque rhoncus vestibulum neque, sed ullamcorper mauris finibus sit amet. Curabitur vitae varius velit, et rhoncus elit. Sed rutrum tempor turpis, id fermentum dolor tempor vitae.
         </p>
       </>
     ),

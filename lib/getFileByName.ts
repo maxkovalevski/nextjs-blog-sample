@@ -142,7 +142,7 @@ export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permali
   };
 
   // generating social card
-  let socialCard;
+  let socialCard = null;
 
   if (!excludedFiles.includes(filePath)) {
     socialCard = createSocialCard(frontMatter, logo)

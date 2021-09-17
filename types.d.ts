@@ -12,7 +12,7 @@ export interface PostFrontMatter {
   layout?: string;
   public?: boolean;
   urlPrefix?: string;
-  socialCard?: string;
+  socialCard?: string | null;
 }
 
 export interface Post extends PostFrontMatter {

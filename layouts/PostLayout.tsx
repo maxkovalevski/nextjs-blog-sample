@@ -41,7 +41,7 @@ const PostLayout: FC<Props> = ({ frontMatter, children, seoProps = {} }) => {
         </BtnBack>
         <article>
           <ContentCard
-            topView={<PostContentImage imgView={<Image src={`/${image}`} width="1100px" height="500px" layout="responsive" objectFit="cover" />} />}
+            topView={image ? <PostContentImage imgView={<Image src={`/${image}`} width="1100px" height="500px" layout="responsive" objectFit="cover" />} /> : null}
           >
             <header>
               <h1>{title}</h1>
