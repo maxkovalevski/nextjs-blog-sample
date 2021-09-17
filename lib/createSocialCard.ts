@@ -1,21 +1,21 @@
 // import { createFileNodeFromBuffer } from `gatsby-source-filesystem`;
-import { writeFileSync, existsSync, mkdirSync } from 'fs';
-import path from 'path';
+const { writeFileSync, existsSync, mkdirSync } = require('fs');
+const path = require('path');
 // @ts-ignore
-import { createCanvas, Image, registerFont } from 'canvas/browser';
-import format from 'date-fns/format';
+const { createCanvas, Image, registerFont } = require('canvas');
+const format = require('date-fns/format');
 
-import siteMetadata from '../siteMetadata';
+const siteMetadata = require('../siteMetadata');
 
 const { siteDomain } = siteMetadata;
 
-import { PostFrontMatter } from '../types';
-import { fillTextOnCanvas } from './fillTextOnCanvas';
-import { formatSlug } from './formatSlug';
+//import { PostFrontMatter } from '../types';
+const { fillTextOnCanvas } = require('./fillTextOnCanvas');
+const { formatSlug } = require('./formatSlug');
 
 const root = process.cwd();
 
-export const createSocialCard = ({ title = '', slug, tags, date }: PostFrontMatter, logo: Image) => {
+export const createSocialCard = ({ title = '', slug, tags, date }: any, logo: any) => {
     const fileName = `${formatSlug(slug)}.png`;
     const thumbnailsDir = '/img/thumbnails';
     const thumbnailFilePath = `${root}/public${thumbnailsDir}/${fileName}`;
@@ -60,7 +60,7 @@ export const createSocialCard = ({ title = '', slug, tags, date }: PostFrontMatt
         context.font = 'bold 22pt FiraCode';
         context.textAlign = 'left';
         context.fillStyle = '#d89d15';
-        const tagsText = tags.map(tag => `#${tag}`).join(' ');
+        const tagsText = tags.map((tag: string) => `#${tag}`).join(' ');
         fillTextOnCanvas(context, tagsText, 80, 380, 900, 45);
     }
 
