@@ -1,5 +1,4 @@
 [build]
-  command = "yarn build"
-  publish = "out"
-  node_bundler = "esbuild"
+  command = "yarn export"
+  publish = "build"
 
