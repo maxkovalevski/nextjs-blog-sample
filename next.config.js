@@ -22,6 +22,17 @@ module.exports = {
       },
     ]
   },
+  ...(process.env.NODE_ENV === 'production' ? {
+    webpack: (config) => {
+      config.externals = {
+        ...config.externals,
+        canvas: "commonjs canvas"
+      };
+      // Important: return the modified config
+      return config
+    }
+  } : {}),
+  /*
   webpack: (config) => {
     config.externals = {
       ...config.externals,
@@ -29,7 +40,7 @@ module.exports = {
     };
     // Important: return the modified config
     return config
-  },
+  },*/
   images: {
     loader: "imgix",
     path: "",
