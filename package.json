@@ -8,7 +8,7 @@
     "export": "yarn build && next export -o build",
     "start": "next start",
     "lint": "next lint",
-    "copyImagesDir": "node ./scripts/copyDir.js 'content/Images' 'build/static/Images'",
+    "copyImagesDir": "node ./scripts/copyDir.js 'content/Images' 'public/Images'",
     "ts:check": "tsc --noEmit"
   },
   "dependencies": {
