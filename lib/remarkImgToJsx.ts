@@ -19,7 +19,7 @@ export function remarkImgToJsx() {
 
           // Convert original node to next/image
           (imageNode.type = "mdxJsxFlowElement"),
-            (imageNode.name = "Image"),
+            (imageNode.name = "CustomImage"),
             (imageNode.attributes = [
               { type: "mdxJsxAttribute", name: "alt", value: imageNode.alt },
               {

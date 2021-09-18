@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import Image from 'next/image';
+import { CustomImage } from './CustomImage';
 
 interface Props {
   imgSrc?: string;
@@ -7,6 +7,6 @@ interface Props {
 }
 
 export const PostCardThumbnail: FC<Props> = ({ imgSrc, title }) => {
-  return imgSrc ? <Image src={imgSrc} alt={title} width="255px" height="175px" layout="responsive" objectFit="cover" /> : null;
+  return imgSrc ? <CustomImage src={imgSrc} alt={title} width="255px" height="175px" layout="responsive" objectFit="cover" /> : null;
 }
 

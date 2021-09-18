@@ -1,18 +1,18 @@
 /* eslint-disable react/display-name */
-import { FC, useMemo } from "react";
+import React, { FC, useMemo } from "react";
 import { getMDXComponent } from "mdx-bundler/client";
-import NextImage from "next/image";
 import NextLink from 'next/link';
 import { PostBanner } from 'nocturnal-ui-react';
 
 import CustomLink from "./CustomLink";
+import { CustomImage } from './CustomImage';
 import { Pre } from "./Pre";
 import  { DEFAULT_LAYOUT } from '../lib/constants'
 import { useConvertkitEmailSubscription } from '../hooks';
 
 export const MDXComponents = {
   Image: (props: any) => <div style={{ maxWidth: '700px', margin: '0 auto 1.5em auto' }}>
-    <NextImage {...props} layout="responsive" />
+    <CustomImage {...props} layout="responsive" />
   </div>,
   a: CustomLink,
   pre: Pre,

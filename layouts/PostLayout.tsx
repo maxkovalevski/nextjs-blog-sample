@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import Image from 'next/image';
 
 import { BtnBack, Container, ContentCard, PostInfo, PostTags } from 'nocturnal-ui-react';
 
@@ -15,6 +14,7 @@ import { Comments } from "../components/Comments";
 
 import siteMetadata from '../siteMetadata';
 import { UtterancesConfig } from "../hooks";
+import { CustomImage } from "../components/CustomImage";
 
 interface Props {
   frontMatter: PostFrontMatter;
@@ -41,7 +41,7 @@ const PostLayout: FC<Props> = ({ frontMatter, children, seoProps = {} }) => {
         </BtnBack>
         <article>
           <ContentCard
-            topView={image ? <PostContentImage imgView={<Image src={`/${image}`} width="1100px" height="500px" layout="responsive" objectFit="cover" />} /> : null}
+            topView={image ? <PostContentImage imgView={<CustomImage src={`/${image}`} width="1100px" height="500px" layout="responsive" objectFit="cover" />} /> : null}
           >
             <header>
               <h1>{title}</h1>
