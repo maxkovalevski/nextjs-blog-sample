@@ -30,5 +30,9 @@ module.exports = {
     // Important: return the modified config
     return config
   },
+  images: {
+    loader: "imgix",
+    path: "",
+  }
 }
 
