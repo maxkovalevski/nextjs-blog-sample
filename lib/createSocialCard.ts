@@ -17,9 +17,10 @@ export const createSocialCard = ({ title = '', slug, tags, date }: PostFrontMatt
     const fileName = `${formatSlug(slug)}.png`;
     const thumbnailsDir = '/img/thumbnails';
     const thumbnailFilePath = `${root}/public${thumbnailsDir}/${fileName}`;
+    const resultPath = `${thumbnailsDir}/${fileName}`;
 
     if (existsSync(thumbnailFilePath)) {
-      return `${thumbnailsDir}/${fileName}`;
+      return resultPath;
     }
 
     if (!existsSync(`${root}/public${thumbnailsDir}`)) {
@@ -77,6 +78,6 @@ export const createSocialCard = ({ title = '', slug, tags, date }: PostFrontMatt
 
     writeFileSync(thumbnailFilePath, buffer);
 
-    return `/img/${fileName}`;
+    return resultPath;
 }
 
