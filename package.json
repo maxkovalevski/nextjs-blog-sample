@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "yarn copyImagesDir && next dev",
     "build": "yarn copyImagesDir && next build",
+    "postbuild": "next-sitemap",
     "export": "yarn build && next export -o build",
     "start": "next start",
     "lint": "next lint",
@@ -49,9 +50,10 @@
     "@types/babel__generator": "^7.6.3",
     "@types/nprogress": "0.2.0",
     "@types/react": "17.0.17",
-    "critters": "^0.0.10",
+    "critters": "0.0.10",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",
+    "next-sitemap": "1.6.168",
     "typescript": "4.3.5"
   }
 }
