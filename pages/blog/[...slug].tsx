@@ -1,15 +1,20 @@
 import { GetStaticPropsContext, NextPage } from "next";
 import React from "react";
+import fs from 'fs';
+import path from 'path';
 
 import { MDXLayoutRenderer } from "../../components/MDXLayoutRenderer";
 
 import { CONTENT_TYPE_BLOG, POST_LAYOUT } from "../../lib/constants";
 import { formatSlug } from "../../lib/formatSlug";
+import { generateRss } from "../../lib/generateRss";
 import { getAboutBlockContent } from "../../lib/getAboutBlockContent";
 import { getAllFilesFrontMatter } from "../../lib/getAllFilesFrontMatter";
 import { getFileByName } from "../../lib/getFileByName";
 import { getFilesPaths } from "../../lib/getFilesPaths";
 import { PostFrontMatter, TableOfContentsData } from "../../types";
+
+const root = process.cwd()
 
 interface Props {
   post: {
@@ -64,8 +69,10 @@ export async function getStaticProps({
   const aboutBlockContentData = await getAboutBlockContent();
 
   // rss
-  // const rss = generateRss(allPosts)
-  // fs.writeFileSync('./public/feed.xml', rss)
+  const rss = generateRss(allPosts, 'blog/feed.xml');
+  const rssPath = path.join(root, 'public', 'blog');
+  fs.mkdirSync(rssPath, { recursive: true });
+  fs.writeFileSync(path.join(rssPath, 'feed.xml'), rss);
 
   return {
     props: {

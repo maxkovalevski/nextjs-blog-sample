@@ -11,7 +11,6 @@ import { getPostExcerpt } from "./getPostExcerpt";
 import { ContentType, PostFrontMatter } from "../types";
 import { isTypeNote } from "./isTypeNote";
 import { getFormattedDate } from "./getFormattedDate";
-import { createSocialCard } from "./createSocialCard";
 
 export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
   const ROOT_DIR = process.cwd();
@@ -46,7 +45,7 @@ export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
       ...frontmatterData,
       slug,
       date: formattedDate,
-      excerpt: excerpt ? excerpt : getPostExcerpt(content),
+      excerpt: excerpt ? getPostExcerpt(excerpt) : getPostExcerpt(content),
       fileName,
       content,
       tags: (frontmatterData?.tags || []).map((tag) => tag.toLowerCase()),

@@ -30,12 +30,6 @@ export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permali
   const excludedFiles = getExcludedFiles();
   const slug = formatSlug(fileName);
   const filePath = path.join(root, dir, fileName);
-  // const mdxPath = path.join(root, CONTENT_DIR, `${fileName}.mdx`);
-  // const mdPath = path.join(root, CONTENT_DIR, `${fileName}.md`);
-  // console.log("mdxPath", mdxPath);
-  // const source = fs.existsSync(mdxPath)
-  //   ? fs.readFileSync(mdxPath, "utf8")
-  //   : fs.readFileSync(mdPath, "utf8");
   const logoPath = path.join(root, siteMetadata.siteLogo);
   const logo = await loadImage(logoPath);
   const source = fs.readFileSync(filePath, "utf8");
@@ -60,7 +54,7 @@ export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permali
 
   let toc: any[] = [];
 
-  const { frontmatter: frontMatterData, code } = await bundleMDX(source, {
+  const { frontmatter: frontMatterData, code, matter } = await bundleMDX(source, {
     // mdx imports can be automatically source from the components directory
     cwd: path.join(process.cwd(), "components"),
     xdmOptions(options) {
@@ -80,22 +74,12 @@ export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permali
         [remarkWikiLink, {
           hrefTemplate: (permalink: string) => `/${permalinkPrefix}/${permalink}`,
           pageResolver: (name: string) => [name]
-        }]
+        }],
       ];
       options.rehypePlugins = [
         ...(options.rehypePlugins ?? []),
         // rehypeKatex,
        [rehypePrism, { showLineNumbers: true, ignoreMissing: true }],
-         //() => {
-           //return (tree) => {
-             //visit(tree, "element", (node) => {
-               //let [token, type] = node.properties.className || [];
-               //if (token === "token") {
-                 //node.properties.className = [tokenClassNames[type]];
-               //}
-             //});
-           //};
-         //},
       ];
       return options;
     },
@@ -107,26 +91,9 @@ export const getFileByName = async (fileName: string, dir = CONTENT_DIR, permali
       };
       options.plugins = [
         ...options.plugins || [],
-        /*
-        cssModulesPlugin({
-          // optional. set to false to not inject generated CSS into <head>, default is true. 
-          // could be a function with params content & digest (return a string of js code to inject to page), 
-          // e.g.
-          // ```
-          // inject: (cssContent, digest) => `console.log("${cssContent}", "${digest}")`
-          // ```
-          build: false,
-          //inject: false,
-
-          localsConvention: 'camelCaseOnly', // optional. value could be one of 'camelCaseOnly', 'camelCase', 'dashes', 'dashesOnly', default is 'camelCaseOnly'
-          
-          //generateScopedName: (name, filename, css) => string, // optional. 
-
-          //v2: true // experimental. v2 can bundle images in css, note if set `v2` to true, the `inject` option will be ignored. and v2 only works with `bundle: true`.
-        })*/
       ];
       return options;
-    },
+    }
   });
 
   // 2021-07-29 17:00

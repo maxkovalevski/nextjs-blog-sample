@@ -68,7 +68,7 @@ export const createSocialCard = ({ title = '', slug, tags, date }: PostFrontMatt
         context.font = 'bold 20pt FiraCode';
         context.textAlign = 'left';
         context.fillStyle = '#E2E2E2';
-        context.fillText(formattedDate, 500, 522);           
+        context.fillText(formattedDate, 715, 522);           
     }
 
     // draw image (logo-avatar)
