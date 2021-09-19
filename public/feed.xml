@@ -1,0 +1,116 @@
+
+  <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+      <title>Next.js Blog Sample</title>
+      <link>http://localhost/blog</link>
+      <description>My blog</description>
+      <language>en-us</language>
+      <managingEditor>me@kowalevski.com (Max Kowalevski)</managingEditor>
+      <webMaster>me@kowalevski.com (Max Kowalevski)</webMaster>
+      <lastBuildDate>Sun, 18 Apr 2021 09:00:00 GMT</lastBuildDate>
+      <atom:link href="http://localhost/feed.xml" rel="self" type="application/rss+xml"/>
+      
+  <item>
+    <guid>http://localhost/blog/aliquam-non-condimentum-turpis-at-vestibulum-tortor</guid>
+    <title>Aliquam non condimentum turpis, at vestibulum tortor.</title>
+    <link>http://localhost/blog/aliquam-non-condimentum-turpis-at-vestibulum-tortor</link>
+    <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer libero quam, vestibulum in augue ac, tincidunt volutpat lacus. Pellentesque nibh erat...</description>
+    <pubDate>Sun, 18 Apr 2021 09:00:00 GMT</pubDate>
+    <author>me@kowalevski.com (Max Kowalevski)</author>
+    <category>typescript</category>
+  </item>
+
+  <item>
+    <guid>http://localhost/blog/neque-porro-quisquam-est-qui-dolorem-ipsum</guid>
+    <title>Neque porro quisquam est qui dolorem ipsum</title>
+    <link>http://localhost/blog/neque-porro-quisquam-est-qui-dolorem-ipsum</link>
+    <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer libero quam, vestibulum in augue ac, tincidunt volutpat lacus. Pellentesque nibh erat...</description>
+    <pubDate>Sun, 18 Apr 2021 09:00:00 GMT</pubDate>
+    <author>me@kowalevski.com (Max Kowalevski)</author>
+    <category>testing</category><category>jest</category><category>javascript</category><category>react</category><category>typescript</category>
+  </item>
+
+  <item>
+    <guid>http://localhost/notes/TypeScript</guid>
+    <title>TypeScript</title>
+    <link>http://localhost/notes/TypeScript</link>
+    <description>
+# TypeScript
+
+**TypeScript** is a *superset* of [[JavaScript]] that provides you to write [[JavaScript]] code with Static typing (optionally).
+
+
+**In...</description>
+    <pubDate>Sun, 27 Dec 2020 00:00:00 GMT</pubDate>
+    <author>me@kowalevski.com (Max Kowalevski)</author>
+    <category>typescript</category><category>javascript</category>
+  </item>
+
+  <item>
+    <guid>http://localhost/notes/JavaScript</guid>
+    <title>JavaScript</title>
+    <link>http://localhost/notes/JavaScript</link>
+    <description>
+# JavaScript
+
+**JavaScript** is programming language that it described by these criteria&#39;s:
+
+- high-level language
+- dynamic type system
+- multi-para...</description>
+    <pubDate>Sun, 13 Dec 2020 00:00:00 GMT</pubDate>
+    <author>me@kowalevski.com (Max Kowalevski)</author>
+    <category>javascript</category>
+  </item>
+
+  <item>
+    <guid>http://localhost/notes/Node</guid>
+    <title>Node</title>
+    <link>http://localhost/notes/Node</link>
+    <description>
+# Node.js
+
+**Node.js** is a JavaScript runtime that is based on [Chrome&#39;s V8 Engine](https://v8.dev/)
+
+### Links
+
+- [GitHub repo (nodejs/node)](https...</description>
+    <pubDate>Sun, 13 Dec 2020 00:00:00 GMT</pubDate>
+    <author>me@kowalevski.com (Max Kowalevski)</author>
+    <category>node</category><category>javascript</category>
+  </item>
+
+  <item>
+    <guid>http://localhost/notes/React</guid>
+    <title>React</title>
+    <link>http://localhost/notes/React</link>
+    <description>
+# React
+
+**React** is a JavaScript library for building user interface. 
+
+### Links
+
+- [GitHub repo (facebook/react)](https://github.com/facebook/rea...</description>
+    <pubDate>Sun, 13 Dec 2020 00:00:00 GMT</pubDate>
+    <author>me@kowalevski.com (Max Kowalevski)</author>
+    <category>react</category><category>javascript</category>
+  </item>
+
+  <item>
+    <guid>http://localhost/notes/GitHub</guid>
+    <title>GitHub</title>
+    <link>http://localhost/notes/GitHub</link>
+    <description>
+# GitHub
+
+- Hosting for Git repositories
+- Website and/or service where you can create and manage Git repositories
+- It also can be described as &quot;soc...</description>
+    
+    <author>me@kowalevski.com (Max Kowalevski)</author>
+    <category>git</category>
+  </item>
+
+    </channel>
+  </rss>

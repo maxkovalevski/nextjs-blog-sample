@@ -1,0 +1,34 @@
+
+  <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+      <title>Next.js Blog Sample</title>
+      <link>http://localhost/blog</link>
+      <description>My blog</description>
+      <language>en-us</language>
+      <managingEditor>me@kowalevski.com (Max Kowalevski)</managingEditor>
+      <webMaster>me@kowalevski.com (Max Kowalevski)</webMaster>
+      <lastBuildDate>Sun, 18 Apr 2021 09:00:00 GMT</lastBuildDate>
+      <atom:link href="http://localhost/blog/feed.xml" rel="self" type="application/rss+xml"/>
+      
+  <item>
+    <guid>http://localhost/blog/aliquam-non-condimentum-turpis-at-vestibulum-tortor</guid>
+    <title>Aliquam non condimentum turpis, at vestibulum tortor.</title>
+    <link>http://localhost/blog/aliquam-non-condimentum-turpis-at-vestibulum-tortor</link>
+    <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer libero quam, vestibulum in augue ac, tincidunt volutpat lacus. Pellentesque nibh erat...</description>
+    <pubDate>Sun, 18 Apr 2021 09:00:00 GMT</pubDate>
+    <author>me@kowalevski.com (Max Kowalevski)</author>
+    <category>typescript</category>
+  </item>
+
+  <item>
+    <guid>http://localhost/blog/neque-porro-quisquam-est-qui-dolorem-ipsum</guid>
+    <title>Neque porro quisquam est qui dolorem ipsum</title>
+    <link>http://localhost/blog/neque-porro-quisquam-est-qui-dolorem-ipsum</link>
+    <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer libero quam, vestibulum in augue ac, tincidunt volutpat lacus. Pellentesque nibh erat...</description>
+    <pubDate>Sun, 18 Apr 2021 09:00:00 GMT</pubDate>
+    <author>me@kowalevski.com (Max Kowalevski)</author>
+    <category>testing</category><category>jest</category><category>javascript</category><category>react</category><category>typescript</category>
+  </item>
+
+    </channel>
+  </rss>

@@ -5,11 +5,11 @@ const siteMetadata = {
   description: "My blog",
   keywords: [],
   language: "en-us",
-  siteDomain: 'yourdomain',
+  siteDomain: 'localhost',
   siteUrl: process.env.SITE_URL || 'http://localhost',
   siteRepo: "https://github.com/kowalevski/nextjs-blog-sample",
-  siteLogo: "/static/img/logo.png",
-  defaultImage: "/static/images/avatar.png",
+  siteLogo: "/static/img/avatar.jpeg",
+  defaultImage: "/static/img/avatar.jpeg",
   avatar: "/static/img/avatar.jpeg",
   favicon: "/img/avatar.jpeg",
   email: "me@kowalevski.com",
@@ -46,6 +46,14 @@ const siteMetadata = {
     {
       path: "/notes",
       name: "Notes",
+    },
+    {
+      path: "/all",
+      name: "All",
+    },
+    {
+      path: "/feed.xml",
+      name: "Feed",
     },
     {
       path: "https://twitter.com/mkowalevski",
