@@ -6,6 +6,7 @@ import { CONTENT_DIR } from "./constants";
 import { getAllFilesRecursively } from "./getAllFilesRecursively";
 import { ContentType, PostFrontMatter } from "../types";
 import { contentTypeCondition } from "./contentTypeCondition";
+import { isPublished } from "./isPublished";
 
 const root = process.cwd();
 
@@ -20,7 +21,7 @@ export const getFilesPaths = (contentTypes: ContentType[]): string[] => {
     const { data } = matter(source);
     const frontmatter = data as PostFrontMatter;
 
-    if (!frontmatter.public || !contentTypeCondition(contentTypes, frontmatter.type)) {
+    if (!isPublished(frontmatter) || !contentTypeCondition(contentTypes, frontmatter.type)) {
       return;
     }
 

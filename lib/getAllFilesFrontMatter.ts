@@ -11,6 +11,7 @@ import { getPostExcerpt } from "./getPostExcerpt";
 import { ContentType, PostFrontMatter } from "../types";
 import { isTypeNote } from "./isTypeNote";
 import { getFormattedDate } from "./getFormattedDate";
+import { isPublished } from "./isPublished";
 
 export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
   const ROOT_DIR = process.cwd();
@@ -32,7 +33,7 @@ export async function getAllFilesFrontMatter(contentTypes: ContentType[]) {
     const frontmatterData = data as PostFrontMatter;
     const { public: isPublic = false, type, excerpt } = frontmatterData;
 
-    if (!isPublic || !contentTypeCondition(contentTypes, type)) {
+    if (!isPublished({ public: isPublic, ...frontmatterData }) || !contentTypeCondition(contentTypes, type)) {
       return;
     }
 

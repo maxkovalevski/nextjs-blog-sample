@@ -2,6 +2,7 @@
 title: 'GitHub'
 tags: ['git']
 public: true
+date: '2021-09-19'
 ---
 
 # GitHub
